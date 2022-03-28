@@ -1,3 +1,4 @@
+from weakref import ref
 from flask import Flask, jsonify, request
 from flask_restx import Api, Resource, fields
 from config import DevConfig
@@ -5,13 +6,15 @@ from exts import db
 from models import Recipe, User
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import JWT
+from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token
 
 app=Flask(__name__)
 app.config.from_object(DevConfig)
 db.init_app(app)
 
 migrate = Migrate(app, db)
+JWTManager(app)
+
 
 api = Api(app)
 
@@ -30,6 +33,14 @@ signup_model=api.model(
     {
         "username":fields.String(),
         "email":fields.String(),
+        "password":fields.String()
+    }
+)
+
+login_model=api.model(
+    "Login",
+    {
+        "username":fields.String(),
         "password":fields.String()
     }
 )
@@ -61,8 +72,28 @@ class SignUp(Resource):
 
 @api.route('/login')
 class Login(Resource):
+    
+    @api.expect(login_model)
     def post(self):
-        pass
+        data=request.get_json()
+
+        username=data.get('username')
+        password=data.get('password')
+
+        db_user=User.query.filter_by(username=username).first()
+        db_userid=db_user.id
+
+        if db_user and check_password_hash(db_user.password, password):
+            access_token=create_access_token(identity=db_user.username)
+            refresh_token=create_refresh_token(identity=db_user.username)
+
+            return jsonify({
+                "access token": access_token,
+                "refresh_token": refresh_token,
+                "user_id": db_userid
+            })
+
+
 
 
 
