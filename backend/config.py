@@ -16,4 +16,8 @@ class ProdConfig(Config):
     pass
 
 class TestConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI='postgresql://postgres@localhost/finalrecipesapp'
+    SQLALCHEMY_ECHO=False
+    TESTING=True
+
+
