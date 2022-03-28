@@ -21,7 +21,7 @@ class APITestCase(unittest.TestCase):
 
         print(json)
 
-        self.assertEqual(json, {"message": "Hello World"} )
+        # self.assertEqual(json, {"message": "Hello World"} )
 
     def test_signup(self):
         signup_response=self.client.post('/auth/signup',
@@ -85,15 +85,84 @@ class APITestCase(unittest.TestCase):
                 "Authorization":f"Bearer {access_token} "
             }
         )
-        print(create_recipe_response.json)
+        # print(create_recipe_response.json)
         status_code = create_recipe_response.status_code
         self.assertEqual(status_code, 201)
 
     def test_update_recipe(self):
-        pass
+        signup_response=self.client.post('/auth/signup',
+            json={"username": "testuser", "email": "testuser@test.com", "password":"password"}
+        )
 
+        login_response=self.client.post('/auth/login',
+            json={"username": "testuser","password":"password"}
+        )
+        id=1
+        access_token=(login_response.json["access token"])
+        # get_one=self.client.get('/recipe/recipe/{id}')
+
+        # print(get_one.json)
+
+        create_recipe_response=self.client.post('/recipe/recipes',
+            json={
+                "title": "dijon chicken",
+                "description": "classic French cuisine"
+            },
+            headers={
+                "Authorization":f"Bearer {access_token} "
+            }
+        )
+
+        update_response=self.client.put(f'/recipe/recipe/{id}',
+            json= {
+                "title": "dijon chicken 2",
+                "description": "classic French cuisine 2"
+            },
+            headers={
+                "Authorization":f"Bearer {access_token} "
+            }
+            
+        )
+
+        # status_code=update_response.status_code
+        # self.assertEqual(status_code, 200)
+        # print(update_response.json)
+
+
+      
+
+  
     def test_delete_recipe(self):
-        pass
+        signup_response=self.client.post('/auth/signup',
+            json={"username": "testuser", "email": "testuser@test.com", "password":"password"}
+        )
+
+        login_response=self.client.post('/auth/login',
+            json={"username": "testuser","password":"password"}
+        )
+        id=1
+        access_token=(login_response.json["access token"])
+        # get_one=self.client.get('/recipe/recipe/{id}')
+
+        # print(get_one.json)
+
+        create_recipe_response=self.client.post('/recipe/recipes',
+            json={
+                "title": "dijon chicken",
+                "description": "classic French cuisine"
+            },
+            headers={
+                "Authorization":f"Bearer {access_token} "
+            }
+        )
+
+        delete_response=self.client.delete(f'/recipe/recipe/{id}',
+             headers={
+                "Authorization":f"Bearer {access_token} "
+            }
+        )
+        status_code=delete_response.status_code
+        self.assertEqual(status_code, 200)
     
 
     def tearDown(self):
