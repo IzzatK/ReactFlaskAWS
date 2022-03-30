@@ -9,12 +9,15 @@ const SignUpPage = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const {register, watch, handleSubmit, formState:{errors}} = useForm();
+    const {register, watch, handleSubmit, reset, formState:{errors}} = useForm();
 
 
-    const submitForm = (data) => 
+    const submitForm = (data) => {
     
         console.log('data is ---->',data);
+
+        reset()
+    }
 
 
 
@@ -54,23 +57,40 @@ const SignUpPage = () => {
                  <form onSubmit={handleSubmit(submitForm)}>
                      <div className="form-group mb-3">
                          <label>Username</label>
-                         <input {...register("username")} 
-                                  className="form-control" placeholder="Enter Email"/> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handleUsername} name="username" type="text" className="form-control" placeholder="Enter Username" */}
+                         <input {...register("username", {required:true, maxLength:25})} 
+                                  className="form-control" placeholder="Enter Username"/> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handleUsername} name="username" type="text" className="form-control" placeholder="Enter Username" */}
+                           <br/>
+                     {errors.username && <span className="text-danger">Username is required</span>}
+                     <br/>
+                     {errors.username?.type=="maxLength" && <span className='text-danger'>Your Username is too long</span>}
                      </div>
+                   
                      <div className="form-group mb-3">
                          <label>Email</label>
-                         <input {...register("email")}
-                                  className="form-control" placeholder="Enter Username"/>
+                         <input {...register("email", {required:true, maxLength:25})}
+                                  className="form-control" placeholder="Enter Email"/>
+                                    <br/> {/** use RegEx to confirm that it's a valid email */}
+                     {errors.email && <span className="text-danger">Email is required</span>}
+                     <br/>
+                     {errors.email?.type=="maxLength" && <span className='text-danger'>Your Email is too long</span>}
                      </div>
                      <div className="form-group mb-3">
                          <label>Password</label>
-                         <input  {...register("password")}
-                                 className="form-control" placeholder="Enter Username"/>
+                         <input  {...register("password", {required:true, minLength:8})}
+                                 className="form-control" placeholder="Enter Password"/>
+                          <br/>
+                     {errors.password && <span className="text-danger">Password is required</span>}
+                     <br/>
+                     {errors.password?.type=="minLength" && <span className='text-danger'>Password is not strong enough</span>}
                      </div>
                      <div className="form-group mb-3">
                          <label>confirm-password</label>
-                         <input {...register("confirmPassword")}
-                                className="form-control" placeholder="Enter Username"/>
+                         <input {...register("confirmPassword", {required:true, minLength:8})}
+                                className="form-control" placeholder="Enter Confirm Password"/>
+                                  <br/>
+                     {errors.confirmPassword && <span className="text-danger">Confirm Password is required</span>}
+                     <br/>
+                     {errors.confirmPassword?.type=="maxLength" && <span className='text-danger'>Password is not strong enough</span>}
                      </div>
                      <button type="submit" className="primary">Sign Up</button> {/* Buttons submission in React will refresh the page*/}
                      <div className="form-group mt-2"><small>Already have an account? <Link to="/login">Click here to Log in</Link></small></div>
