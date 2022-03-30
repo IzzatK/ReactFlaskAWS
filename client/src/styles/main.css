@@ -1,0 +1,25 @@
+.container {
+    margin-top:50px;
+}
+
+#heading{
+    font-size:48px;
+}
+
+.form {
+    margin:auto;
+    width:80%;
+}
+
+/* @media(max-width: 767px)
+{
+    .container {
+        display:none;
+    }
+}
+
+
+@max-width:(900px) {
+    
+}
+*/
