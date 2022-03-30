@@ -42,8 +42,8 @@ class User:
 
 class User(db.Model):
     id=db.Column(db.Integer(), primary_key=True)
-    username=db.Column(db.String(), nullable=False)
-    email=db.Column(db.String(), nullable=False)
+    username=db.Column(db.String(), nullable=False, unique=True)
+    email=db.Column(db.String(), nullable=False, unique=True)
     password=db.Column(db.Text(), nullable=False)
 
     def __repr__(self):
