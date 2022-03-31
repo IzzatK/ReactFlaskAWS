@@ -1,5 +1,6 @@
 from exts import db
 
+
 """
 class Recipe:
     id: int primary key
@@ -10,9 +11,11 @@ class Recipe:
 """
 
 class Recipe(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True) #()empty params not included in blogapp Models
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.Text(), nullable=False)
+    user_id=db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    
 
     def __repr__(self):
         return f"<Recipe {self.title}>"
@@ -30,6 +33,7 @@ class Recipe(db.Model):
         self.description=description,
 
         db.session.commit()
+        
 
 #user model
 """
@@ -45,6 +49,7 @@ class User(db.Model):
     username=db.Column(db.String(), nullable=False, unique=True)
     email=db.Column(db.String(), nullable=False, unique=True)
     password=db.Column(db.Text(), nullable=False)
+    recipes=db.relationship('Recipe', backref='author', lazy=True)
 
     def __repr__(self):
         return f"<User {self.username}>"

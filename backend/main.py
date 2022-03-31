@@ -1,7 +1,7 @@
 from weakref import ref
 from flask import Flask, jsonify, request
 from flask_restx import Api, Resource
-from config import DevConfig
+from config import TestConfig
 from exts import db
 from models import Recipe, User
 from flask_migrate import Migrate
@@ -15,9 +15,12 @@ from flask_cors import CORS
 def create_app(config):
     app=Flask(__name__)
     app.config.from_object(config)
-    db.init_app(app)
     CORS(app)
+    db.init_app(app)
 
+    with app.app_context():
+     db.create_all()
+   
     migrate = Migrate(app, db)
     JWTManager(app)
 
@@ -37,6 +40,7 @@ def create_app(config):
                 "user": User
             }
 
+  
     return app
 
 

@@ -13,7 +13,41 @@ const SignUpPage = () => {
 
 
     const submitForm = (data) => {
+        
     
+        // console.log('username is --> ',data.username)
+        // console.log('confirmPassword is --> ',data.confirmPassword)
+
+        if (data.password === data.confirmPassword) {
+            const body = {
+                username: data.username,
+                email: data.email,
+                password: data.password,
+                
+            }
+        const requestOptions = {
+            method:"POST",
+            headers: {
+                'content-type': 'application/json',
+
+            },
+            body: JSON.stringify(body)
+            
+
+        }
+        fetch('/auth/signup', requestOptions)
+         .then(res => res.json())
+         .then(data => console.log(data))
+         .catch(err=>console.log(err))
+
+    }
+
+    else {
+        alert("Passwords don't match");
+        return;
+    }
+
+
         console.log('data is ---->',data);
 
         reset()
@@ -59,38 +93,38 @@ const SignUpPage = () => {
                          <label>Username</label>
                          <input {...register("username", {required:true, maxLength:25})} 
                                   className="form-control" placeholder="Enter Username"/> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handleUsername} name="username" type="text" className="form-control" placeholder="Enter Username" */}
-                           <br/>
-                     {errors.username && <span className="text-danger">Username is required</span>}
-                     <br/>
-                     {errors.username?.type=="maxLength" && <span className='text-danger'>Your Username is too long</span>}
+                       
+                     {errors.username && (<><span className="text-danger">Username is required</span> <br/></>) }
+                     
+                     {errors.username?.type==="maxLength" && <span className='text-danger'>Your Username is too long</span>}
                      </div>
                    
                      <div className="form-group mb-3">
                          <label>Email</label>
-                         <input {...register("email", {required:true, maxLength:25})}
+                         <input {...register("email", {required:true, maxLength:45})}
                                   className="form-control" placeholder="Enter Email"/>
-                                    <br/> {/** use RegEx to confirm that it's a valid email */}
-                     {errors.email && <span className="text-danger">Email is required</span>}
+                                   {/** use RegEx to confirm that it's a valid email */}
+                     {errors.email && <small className="text-danger">Email is required</small>}
                      <br/>
-                     {errors.email?.type=="maxLength" && <span className='text-danger'>Your Email is too long</span>}
+                     {errors.email?.type==="maxLength" && <small className='text-danger'>Your Email is too long</small>}
                      </div>
                      <div className="form-group mb-3">
                          <label>Password</label>
                          <input  {...register("password", {required:true, minLength:8})}
                                  className="form-control" placeholder="Enter Password"/>
-                          <br/>
-                     {errors.password && <span className="text-danger">Password is required</span>}
-                     <br/>
-                     {errors.password?.type=="minLength" && <span className='text-danger'>Password is not strong enough</span>}
+                         
+                     {errors.password && (<><small className="text-danger">Password is required</small> <br/></> )} 
+                     
+                     {errors.password?.type==="minLength" && <small className='text-danger'>Password is not strong enough</small>}
                      </div>
                      <div className="form-group mb-3">
                          <label>confirm-password</label>
                          <input {...register("confirmPassword", {required:true, minLength:8})}
                                 className="form-control" placeholder="Enter Confirm Password"/>
-                                  <br/>
-                     {errors.confirmPassword && <span className="text-danger">Confirm Password is required</span>}
+                                  
+                     {errors.confirmPassword && (<><small className="text-danger">Confirm Password is required</small> <br/> </>)}
                      <br/>
-                     {errors.confirmPassword?.type=="maxLength" && <span className='text-danger'>Password is not strong enough</span>}
+                     {errors.confirmPassword?.type==="maxLength" && <small className='text-danger'>Password is not strong enough</small>}
                      </div>
                      <button type="submit" className="primary">Sign Up</button> {/* Buttons submission in React will refresh the page*/}
                      <div className="form-group mt-2"><small>Already have an account? <Link to="/login">Click here to Log in</Link></small></div>
