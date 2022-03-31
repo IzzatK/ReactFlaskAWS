@@ -21,3 +21,9 @@ class TestConfig(Config):
     DEBUG=True
 
 
+class NewConfig(Config):
+    SQLALCHEMY_DATABASE_URI="postgresql://postgres@localhost/finalrecipesapp2"
+    # SQLALCHEMY_ECHO=True
+    DEBUG=True
+
+

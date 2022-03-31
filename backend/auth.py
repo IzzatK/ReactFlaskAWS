@@ -76,7 +76,7 @@ class Login(Resource):
             refresh_token=create_refresh_token(identity=db_user.username)
 
             return jsonify({
-                "access token": access_token,
+                "access_token": access_token,
                 "refresh_token": refresh_token,
                 "user_id": db_userid
             })
@@ -89,4 +89,4 @@ class RefreshResource(Resource):
 
         new_access_token=create_access_token(identity=current_user)
 
-        return make_response(jsonify({"access token":new_access_token}),200)
+        return make_response(jsonify({"access_token":new_access_token}),200)

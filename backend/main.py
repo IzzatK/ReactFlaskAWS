@@ -18,7 +18,7 @@ def create_app(config):
     CORS(app)
     db.init_app(app)
 
-    with app.app_context():
+    with app.app_context(): #this line was giving lots of trouble
      db.create_all()
    
     migrate = Migrate(app, db)

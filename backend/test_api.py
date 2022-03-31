@@ -74,7 +74,7 @@ class APITestCase(unittest.TestCase):
             json={"username": "testuser","password":"password"}
         )
 
-        access_token=(login_response.json["access token"])
+        access_token=(login_response.json["access_token"])
 
         create_recipe_response=self.client.post('/recipe/recipes',
             json={
@@ -98,7 +98,7 @@ class APITestCase(unittest.TestCase):
             json={"username": "testuser","password":"password"}
         )
         id=1
-        access_token=(login_response.json["access token"])
+        access_token=(login_response.json["access_token"])
         # get_one=self.client.get('/recipe/recipe/{id}')
 
         # print(get_one.json)
@@ -141,7 +141,7 @@ class APITestCase(unittest.TestCase):
             json={"username": "testuser","password":"password"}
         )
         id=1
-        access_token=(login_response.json["access token"])
+        access_token=(login_response.json["access_token"])
         # get_one=self.client.get('/recipe/recipe/{id}')
 
         # print(get_one.json)
