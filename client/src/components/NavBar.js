@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 import {useAuth} from '../auth'
 //conditional render the Sign Up header if user.id is saved in localStorage (AKA user is logged in)
 
+const logout = () => {
+    localStorage.removeItem("id");
+    window.location.reload();
+}
+
 
 const LoggedInLinks = () => {
     return(
@@ -11,7 +16,7 @@ const LoggedInLinks = () => {
               <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
             </li>
             <li>
-              <Link className="nav-link active" to="">Log Out</Link>
+              <Link className="nav-link active" to="" onClick={logout}>Log Out</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" to="/create-recipe">Create Recipes</a>
@@ -51,7 +56,8 @@ const NavBar = () => {
         {
             setLogged(false)
         }
-    }, console.log('logged value ------->', logged),[])
+        console.log('logged value ------->', logged)
+    }, [])
 
     return (
         <div>
