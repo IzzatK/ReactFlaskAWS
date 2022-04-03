@@ -12,7 +12,8 @@ recipe_model=recipe_ns.model(
     {
         "id":fields.Integer(),
         "title": fields.String(),
-        "description":fields.String()
+        "description":fields.String(),
+        "user_id": fields.Integer()
     }
 )
 
@@ -28,15 +29,16 @@ class RecipeResource(Resource):
 
     @recipe_ns.marshal_with(recipe_model)
     @recipe_ns.expect(recipe_model)
-    @jwt_required()
     def post(self):
         """Create a recipe"""
 
         data=request.get_json()
 
         new_recipe=Recipe(
+           
             title=data.get('title'),
-            description=data.get('description')
+            description=data.get('description'),
+             user_id=data.get('user_id')
         )
 
         new_recipe.save()
