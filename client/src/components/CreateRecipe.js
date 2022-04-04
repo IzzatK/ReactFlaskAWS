@@ -27,9 +27,15 @@ const CreateRecipePage = () => {
     //     console.log('user ID is ----------->', userID)
     // }
 
+    const handleSubmitUserID = (e) => {
+        e.preventDefault();
+        {register('user_id', {value: userID}, {required:true}) }
+
+    }
+
     const createRecipe = (data) => {
         // console.log(userID) value: userID
-         {register('user_id', {value: userID}, {required:true}) }
+        //  {register('user_id', {value: userID}, {required:true}) }
          console.log('user ID is ----------->', userID)
 
         console.log('data title and description, and userid ---->', data.title, data.description, data.user_id);
@@ -71,7 +77,8 @@ const CreateRecipePage = () => {
                     style={{height: '107px', width: '70%'}}  placeholder='confirm'/>
                 </div>  */}
                 <br/>
-                <div className='form-group'>
+                <button className="mb-2 "onClick={(e) => handleSubmitUserID(e)}>Confirm post details</button>
+                <div className='form-group mt-2'>
                     <button className='btn-sm btn-block btn-primary' onClick={handleSubmit(createRecipe)} type="submit">Save</button>
                 </div>
             </form>
