@@ -11,6 +11,12 @@
     width:80%;
 }
 
+/* @media(max-width:900px) {
+    #welcomeheader {
+        display:none;
+    }
+} */
+
 /* @media(max-width: 767px)
 {
     .container {

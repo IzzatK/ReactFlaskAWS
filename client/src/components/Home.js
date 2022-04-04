@@ -9,6 +9,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
 
     const LoggedInHome = () => {
          const [recipes, setRecipes] = useState([]);
+
          
          useEffect(() => {
             fetch('/recipe/recipes').then(res => res.json()).then(data => 
@@ -21,7 +22,9 @@ const HomePage = () => { /* copy this format to create recipes page user account
          return (
              <div>
                  
-                 <h1>Welcome user</h1>
+                 <h1 id="welcomeheader">Welcome user</h1>
+                 <button onClick={console.log(recipes)}>recipes here</button>
+
                  {
                      recipes.map((recipe) => (
                          <Recipe title={recipe.title} description={recipe.description} user_id={recipe.user_id} />

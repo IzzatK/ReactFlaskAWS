@@ -3,11 +3,14 @@ import React from 'react';
 const Recipe = ({title, description, user_id}) => {
     
     return (
-        <dib className='recipe'>
-            <h3>{title}</h3>
-            <p>{description}</p>
+        <div className='card mt-4'>
+            
+            <div className='card-title'><h3>{title}</h3> </div>
+            <div className='card-body'>
+            <div className='card-text'><p>{description}</p> </div>
             <p>made by {user_id}</p>
-        </dib>
+            </div>
+        </div>
     )
 }
 
