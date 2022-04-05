@@ -8,8 +8,13 @@ const CreateRecipePage = () => {
         const userid = localStorage.getItem("id");
         setUserID(userid)
         console.log('user ID is ----------->', userID)
+        // {register('user_id', {value: userID}, {required:true}) }
+
         
     })
+
+    
+    
 
     // componentWillMount() {
     //     const userid = localStorage.getItem("id");
@@ -34,6 +39,7 @@ const CreateRecipePage = () => {
     }
 
     const createRecipe = (data) => {
+
         // console.log(userID) value: userID
         //  {register('user_id', {value: userID}, {required:true}) }
          console.log('user ID is ----------->', userID)
@@ -49,7 +55,7 @@ const CreateRecipePage = () => {
         }
 
         fetch('/recipe/recipes', requestOptions).then(res => res.json())
-             .then(data => console.log(data)).catch(err => console.log(err))
+             .then(data => reset()).catch(err => console.log(err))
     }
     return (
         <div className="container create-recipe mb-2 mt-2">

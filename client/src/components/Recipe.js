@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-const Recipe = ({title, description, user_id}) => {
-    
+const Recipe = ({title, description, user_id, isAuthor, setIsAuthor}) => {
+   
     return (
         <div className='card mt-4'>
             
