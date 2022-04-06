@@ -11,6 +11,15 @@
     width:80%;
 }
 
+#deletebutton {
+    position:relative;
+    left:5.77px;
+    top:5.7px;
+}
+#updatebutton {
+    position: relative;
+    top:5.7px;
+}
 /* @media(max-width:900px) {
     #welcomeheader {
         display:none;

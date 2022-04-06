@@ -90,6 +90,18 @@ const HomePage = () => { /* copy this format to create recipes page user account
                  .then(data => {reset(); window.location.reload()}).catch(err => console.log(err))
         }
 
+        const deleteRecipe = (recipe) => {
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }
+    
+            fetch(`/recipe/recipe/${recipeID}`, requestOptions).then(res => res.json())
+                 .then(data => {reset(); window.location.reload()}).catch(err => console.log(err))
+        }
+
 
 
          
@@ -113,7 +125,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
                  {
                      recipes.map((recipe, index) => (
                          <>
-                                                    { recipe.user_id == localStorage.getItem("id") ? setIsAuthor(true): 'none' }
+                                                    { recipe.user_id == localStorage.getItem("id") ? setIsAuthor(true): 'youre not the author' }
 
                         {/* {isAuthor ? 'youre the author': 'not the author'}  /* above line is for checking auth values and conditl rendering in Python*/}
                        
@@ -122,7 +134,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
                          {isAuthor
                                    ? 
                                         <>
-                                            <button type="button" onClick={() => showModal(recipe.id)} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                            <button type="button" id="updatebutton" onClick={() => showModal(recipe.id)} class="btn btn-warning mr-2" data-bs-toggle="modal" data-bs-target="#updateModal">
                                             Update Recipe
                                             </button>
 
@@ -164,6 +176,35 @@ const HomePage = () => { /* copy this format to create recipes page user account
 
                                                     <div className='form-group mt-2'>
                                                         <button className='btn-sm btn-block btn-primary' type="submit" onClick={handleSubmit(updateRecipe)}>Save</button>
+                                                    </div>
+                                                </form>
+                                              </div>
+                                                
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <button type="button" id="deletebutton" onClick={() => showModal(recipe.id)} class="btn btn-danger ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                            delete Recipe
+                                            </button>
+
+
+                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                                    <button type="button"  class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                              <div class="modal-body">
+                                                 <form>
+                                                    
+                                
+
+                                                    <div className='form-group mt-2'>
+                                                        <button className='btn-sm btn-block btn-primary' type="submit" onClick={handleSubmit(deleteRecipe)}>Delete</button>
                                                     </div>
                                                 </form>
                                               </div>
