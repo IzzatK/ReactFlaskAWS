@@ -54,7 +54,7 @@ class RecipeResource(Resource):
 
         return recipe
 
-    @jwt_required()
+    
     @recipe_ns.marshal_with(recipe_model)
     def put(self,id):
         """Update a recipe"""
@@ -66,7 +66,7 @@ class RecipeResource(Resource):
         return recipe_to_update
 
 
-    @jwt_required()
+    
     @recipe_ns.marshal_with(recipe_model)
     def delete(self,id):
         """Delete the recipe"""
