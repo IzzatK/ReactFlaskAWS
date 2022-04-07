@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -10,6 +10,7 @@ import SignUpPage from './components/SignUp';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import LoginPage from './components/Login';
 import CreateRecipePage from './components/CreateRecipe';
+import RecipePage from './components/RecipePage';
 
 const App = () => {
 
@@ -32,6 +33,8 @@ const App = () => {
                 <Route path="/login" element={<LoginPage/>} />
                 
                 <Route path="/create-recipe" element={<CreateRecipePage/>} />
+
+                <Route path="/recipe/recipe/:slug" element={<RecipePage />} />
                 
              </Routes>
             </div>

@@ -50,7 +50,7 @@ class RecipeResource(Resource):
     @recipe_ns.marshal_with(recipe_model)
     def get(self,id):
         """Get recipe by id"""
-        recipe=Recipe.query.get_or_404(id)
+        recipe=Recipe.query.get(id)
 
         return recipe
 

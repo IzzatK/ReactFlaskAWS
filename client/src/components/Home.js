@@ -130,7 +130,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
                         {/* {isAuthor ? 'youre the author': 'not the author'}  /* above line is for checking auth values and conditl rendering in Python*/}
                        
                          {/* {console.log('recipe user id, and localStorage.getID, and isAuthor ------------>', recipe.user_id, localStorage.getItem("id"), isAuthor)} */}
-                         <Recipe key={index} title={recipe.title} description={recipe.description} user_id={recipe.user_id} />
+                         <Recipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} user_id={recipe.user_id} />
                          {isAuthor
                                    ? 
                                         <>
