@@ -2,6 +2,7 @@ from flask_restx import Api,Resource,Namespace, fields
 from flask import request,jsonify,make_response
 from models import User
 import random
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
 
@@ -81,6 +82,9 @@ class Login(Resource):
                 "user_id": db_userid
             })
 
+def default_json(t):
+     return f'{t}'
+
 @auth_ns.route('/refresh')
 class RefreshResource(Resource):
     @jwt_required(refresh=True)
@@ -90,3 +94,14 @@ class RefreshResource(Resource):
         new_access_token=create_access_token(identity=current_user)
 
         return make_response(jsonify({"access_token":new_access_token}),200)
+
+@auth_ns.route('/users')
+class UsersResource(Resource):
+    def get(self):
+        users=User.query.all()
+        usersfinal = json.dumps({'value': users}, default=default_json)
+        return jsonify(usersfinal)
+
+
+
+
