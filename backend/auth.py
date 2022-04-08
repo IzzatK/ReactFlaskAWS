@@ -100,7 +100,9 @@ class UsersResource(Resource):
     def get(self):
         users=User.query.all()
         usersfinal = json.dumps({'value': users}, default=default_json)
-        return jsonify(usersfinal)
+        usersfinal2 = json.loads(usersfinal)
+        return jsonify(usersfinal2)
+
 
 
 

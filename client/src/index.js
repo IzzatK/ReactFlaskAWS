@@ -11,6 +11,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import LoginPage from './components/Login';
 import CreateRecipePage from './components/CreateRecipe';
 import RecipePage from './components/RecipePage';
+import AllUsersPage from './components/AllUsersPage';
+import SingleUserPage from './components/SingleUserPage';
 
 const App = () => {
 
@@ -35,6 +37,10 @@ const App = () => {
                 <Route path="/create-recipe" element={<CreateRecipePage/>} />
 
                 <Route path="/recipe/recipe/:slug" element={<RecipePage />} />
+
+                <Route path="/users" element={<AllUsersPage/>} />
+
+                <Route path="/user/:slug" element={<SingleUserPage/>} />
                 
              </Routes>
             </div>

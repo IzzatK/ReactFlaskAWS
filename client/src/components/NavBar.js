@@ -21,6 +21,9 @@ const LoggedInLinks = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/create-recipe">Create Recipes</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/users">All Users</Link>
+            </li>
         </>
     )
 }
