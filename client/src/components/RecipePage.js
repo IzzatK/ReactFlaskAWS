@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Recipe from './Recipe';
 
 const RecipePage = ({title, description, user_id, id}) => {
     const [recipe, setRecipe] = useState([]);
@@ -25,9 +26,10 @@ const RecipePage = ({title, description, user_id, id}) => {
     //  }, [])
    
     return (
-        <>
+        <div className='container'>
         <div>Hello, load recipe into useState variables then display it into a RecipeCard</div>
-        </>
+        <Recipe  id={recipe.id} title={recipe.title} description={recipe.description} user_id={recipe.user_id} />
+        </div>
     )
 }
 
