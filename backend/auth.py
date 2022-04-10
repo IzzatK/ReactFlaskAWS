@@ -70,6 +70,7 @@ class Login(Resource):
 
         db_user=User.query.filter_by(username=username).first()
         db_userid=db_user.id
+        db_username=db_user.username
         
 
         if db_user and check_password_hash(db_user.password, password):
@@ -79,7 +80,8 @@ class Login(Resource):
             return jsonify({
                 "access_token": access_token,
                 "refresh_token": refresh_token,
-                "user_id": db_userid
+                "user_id": db_userid,
+                "username": db_username
             })
 
 def default_json(t):

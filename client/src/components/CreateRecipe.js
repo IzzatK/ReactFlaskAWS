@@ -3,9 +3,12 @@ import { useForm } from 'react-hook-form';
 
 const CreateRecipePage = () => {
     const [userID, setUserID] = useState("");
+    const [userName, setUserName] = useState("");
 
     useEffect(() => {
         const userid = localStorage.getItem("id");
+        const usersname = localStorage.getItem("username");
+        setUserName(usersname)
         setUserID(userid)
         console.log('user ID is ----------->', userID)
         // {register('user_id', {value: userID}, {required:true}) }
@@ -35,6 +38,7 @@ const CreateRecipePage = () => {
     const handleSubmitUserID = (e) => {
         e.preventDefault();
         {register('user_id', {value: userID}, {required:true}) }
+        {register('username', {value: userName}, {required:true})}
 
     }
 
@@ -44,7 +48,7 @@ const CreateRecipePage = () => {
         //  {register('user_id', {value: userID}, {required:true}) }
          console.log('user ID is ----------->', userID)
 
-        console.log('data title and description, and userid ---->', data.title, data.description, data.user_id);
+        console.log('data title and description, userid, username---->', data.title, data.description, data.user_id, data.username);
 
         const requestOptions = {
             method: 'POST',

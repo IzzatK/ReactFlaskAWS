@@ -43,6 +43,7 @@ const LoginPage = () => {
                  console.log('data user id is --->', data.user_id);
                 //  let userid = JSON.stringify(data.user_id);
                   localStorage.setItem("id", data.user_id);
+                  localStorage.setItem("username", data.username)
                   window.location.reload();
                   navigate('/');
              }).catch(err => console.log(err))

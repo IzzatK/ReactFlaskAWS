@@ -20,6 +20,17 @@
     position: relative;
     top:5.7px;
 }
+
+#recipetitle {
+    position:relative;
+    left:12.7px;
+    color: lawngreen;
+    text-decoration: none;
+}
+
+#recipecard {
+    background-color: lightslategray;
+}
 /* @media(max-width:900px) {
     #welcomeheader {
         display:none;

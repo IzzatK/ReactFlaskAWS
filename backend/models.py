@@ -15,6 +15,8 @@ class Recipe(db.Model):
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.Text(), nullable=False)
     user_id=db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    username=db.Column(db.String(), nullable=False)
+    # comments=db.Column(db.String(), db.ForeignKey('user.id'), nullable=False)
     
 
     def __repr__(self):
@@ -50,6 +52,7 @@ class User(db.Model):
     email=db.Column(db.String(), nullable=False, unique=True)
     password=db.Column(db.Text(), nullable=False)
     recipes=db.relationship('Recipe', backref='author', lazy=True)
+    # comments=db.relationship('Recipe', backref='commentauthor', lazy=True)
 
     def __repr__(self):
         return f"<User {self.username}>"

@@ -13,7 +13,8 @@ recipe_model=recipe_ns.model(
         "id":fields.Integer(),
         "title": fields.String(),
         "description":fields.String(),
-        "user_id": fields.Integer()
+        "user_id": fields.Integer(),
+        "username": fields.String(),
     }
 )
 
@@ -38,7 +39,8 @@ class RecipeResource(Resource):
            
             title=data.get('title'),
             description=data.get('description'),
-             user_id=data.get('user_id')
+             user_id=data.get('user_id'),
+             username=data.get('username')
         )
 
         new_recipe.save()
