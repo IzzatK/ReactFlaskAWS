@@ -8,7 +8,7 @@ const SingleUserPage = ({title, description, user_id, id}) => {
 
     useEffect(() => {
         console.log('slug is  ---->', slug);
-        fetch(`/recipe/recipe/${slug}`).then(res => res.json()).then(data => 
+        fetch(`/recipe/user/${slug}`).then(res => res.json()).then(data => 
                                                                     {
                                                                         setRecipe(data); console.log(data);
                                                                     }).catch(err => console.log(err))
