@@ -103,7 +103,7 @@ class UsersResource(Resource):
         users=User.query.all()
         usersfinal = json.dumps({'value': users}, default=default_json)
         usersfinal2 = json.loads(usersfinal)
-        return jsonify(usersfinal2)
+        return usersfinal2
 
 
 

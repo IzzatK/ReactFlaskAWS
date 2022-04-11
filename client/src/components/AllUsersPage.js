@@ -4,14 +4,18 @@ import Recipe from './Recipe';
 
 const AllUsersPage = ({title, description, user_id, id}) => {
     const [users, setUsers] = useState([]);
-    const i = 0;
+    const [i, setI] = useState(0);
+    const [arraySize, setArraySize] = useState(0);
     // const {slug} = useParams();
 
     useEffect(() => {
         // console.log('slug is  ---->', slug);
         fetch(`/auth/users`).then(res => res.json()).then(data => 
                                                                     {
-                                                                        setUsers(data); console.log(data);
+                                                                        setUsers(data.value); console.log(data);
+                                                                        setArraySize(data.value.length);
+                                                                        console.log('array is', data.value);
+
                                                                     }).catch(err => console.log(err))
 
         // if(i < users.values.length) {
@@ -34,10 +38,13 @@ const AllUsersPage = ({title, description, user_id, id}) => {
         <div className='container'>
         <div>Hello, load recipe into useState variables then display it into a RecipeCard</div>
         {/* {users.value[0]} */}
-        {/* {i < users.value.length ? (<>{users.value[0]}</>) : 'none'}   */}
+         {console.log('arraySize ------->', arraySize)}
+         {console.log('users is --------->', users)}
+         {/* {users.map((user) => <>{user}</>)} */}
         {/**load the user values into a useEffect statement, which'll loop over user.value.length */}
-        {/* { i < users.value.length && (<>{users.value[i]}</>)} */}
-        {users.value}
+        {/* {users.value.map((user) => (<><p>user here {user}</p></>))} */}
+         {/* { i < arraySize ? (<><p>{users.value[i]}</p></>) : (<><p>none</p></>)}  */}
+        {users.map((user) => (<>{user}</>))}
         
         
         </div>
