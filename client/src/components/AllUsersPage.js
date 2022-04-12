@@ -12,9 +12,10 @@ const AllUsersPage = ({title, description, user_id, id}) => {
         // console.log('slug is  ---->', slug);
         fetch(`/auth/users`).then(res => res.json()).then(data => 
                                                                     {
-                                                                        setUsers(data.value); console.log(data);
-                                                                        setArraySize(data.value.length);
-                                                                        console.log('array is', data.value);
+                                                                        setUsers(data); console.log(data);
+                                                                        setArraySize(data.length);
+                                                                        console.log('array is', data);
+                                                                        
 
                                                                     }).catch(err => console.log(err))
 
@@ -23,6 +24,8 @@ const AllUsersPage = ({title, description, user_id, id}) => {
         // }
 
     }, [])
+
+    
 
     // useEffect(() => {
     //     fetch(`/recipe/recipe/${slug}`).then(res => res.json()).then(data => 
@@ -42,9 +45,9 @@ const AllUsersPage = ({title, description, user_id, id}) => {
          {console.log('users is --------->', users)}
          {/* {users.map((user) => <>{user}</>)} */}
         {/**load the user values into a useEffect statement, which'll loop over user.value.length */}
-        {/* {users.value.map((user) => (<><p>user here {user}</p></>))} */}
+        {/* look at deleteRecipe method on HomePage */}
          {/* { i < arraySize ? (<><p>{users.value[i]}</p></>) : (<><p>none</p></>)}  */}
-        {users.map((user) => (<>{user}</>))}
+        {users.map((user) =>  (<div className='container'><div className='row'><Link to ={`/user/${user}`}>{user}</Link></div></div>))}
         
         
         </div>

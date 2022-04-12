@@ -10,7 +10,7 @@ const Recipe = ({title, description, user_id, username, id}) => {
             <Link to={`/recipe/recipe/${id}`} id="recipetitle" className='card-title'><h3>{title}</h3> </Link>
             <div className='card-body'>
             <div className='card-text'><p>{description}</p> </div>
-            <Link to ={`/user/${user_id}`} > <p>made by {username}</p> </Link>
+            <Link to ={`/user/${username}`} > <p>made by {username}</p> </Link>
             </div>
         </div>
     )

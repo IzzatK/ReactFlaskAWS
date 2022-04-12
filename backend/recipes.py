@@ -81,14 +81,14 @@ class RecipeResource(Resource):
 
         
 
-@recipe_ns.route("/user/<int:id>")
+@recipe_ns.route("/user/<string:username>")
 class RecipeResource(Resource):
     @recipe_ns.marshal_with(recipe_model)
-    def get(self, id):
-        user = User.query.filter_by(id=id).first_or_404()
+    def get(self, username):
+        user = User.query.filter_by(username=username).first_or_404()
         print(user.username) #concatenate the <User AKA first 5 chars, and the > last char
         user_name=user.username
-        recipes = Recipe.query.filter_by(user_id=id).all() #grab recipes from PosrgreSQL... use .first() or .all()
+        recipes = Recipe.query.filter_by(username=user.username).all() #grab recipes from PosrgreSQL... use .first() or .all()
         # recipes2 = Recipe.query.filter_by(author=user) #grab recipes from PosrgreSQL
         # recipes3 = Recipe.query.filter_by(username=user.username) #grab recipes from PosrgreSQL
 

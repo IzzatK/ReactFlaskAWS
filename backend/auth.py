@@ -97,13 +97,22 @@ class RefreshResource(Resource):
 
         return make_response(jsonify({"access_token":new_access_token}),200)
 
+
 @auth_ns.route('/users')
 class UsersResource(Resource):
     def get(self):
         users=User.query.all()
-        usersfinal = json.dumps({'value': users}, default=default_json)
-        usersfinal2 = json.loads(usersfinal)
-        return usersfinal2
+        i = len(users)
+        x = 0
+        data=[]
+        # print(i)
+        for user in users:
+            data.insert(x, user.username)
+            x=x+1
+         
+            
+        return data
+
 
 
 
