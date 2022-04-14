@@ -63,10 +63,17 @@ class RecipeResource(Resource):
         """Update a recipe"""
         recipe_to_update=Recipe.query.get_or_404(id)
         data=request.get_json()
+        resUserID = data.get('id')
+        user = recipe_to_update.user_id
+        # user_id = user.id #use print statements for testing APIs
+                         #if userID in localStorage FrontEnd == recipe.user_id
+        print(resUserID, user)
+        if resUserID != user:
+            recipe_to_update.update(data.get('title'), data.get('description'))
 
-        recipe_to_update.update(data.get('title'), data.get('description'))
-
-        return recipe_to_update
+            return recipe_to_update
+        else:
+            return
 
 
     

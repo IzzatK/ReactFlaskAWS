@@ -14,6 +14,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
     const LoggedInHome = () => {
          const [recipes, setRecipes] = useState([]);
          const [recipeID, setRecipeID] = useState(0); //this line was giving trouble cause it was outside scope of LoggedInHome funcn
+         const [userID, setUserID] = useState("");
          const {register, handleSubmit, reset, setValue, formState:{errors}} = useForm()
          const [title, setTitle] = useState("");
          const [description, setDescription] = useState("");
@@ -63,6 +64,9 @@ const HomePage = () => { /* copy this format to create recipes page user account
             e.preventDefault();
             {register('title', {value: title}, {required:true} )}
             {register('description', {value: description}, {required:true})}
+            {register('user_id', {value: userID}, {required:true}) }
+        
+            
 
         }
 
@@ -111,6 +115,11 @@ const HomePage = () => { /* copy this format to create recipes page user account
                         // console.log(data);                     
                          setRecipes(data);
                   }).catch(err => console.log(err))
+
+
+                  const userid = localStorage.getItem("id");
+        setUserID(userid)
+        console.log('user ID is ----------->', userID)
                 //   { register('title', {value: title} )}
                 //   { register('description', {value: description})}
          }, [])

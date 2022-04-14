@@ -25,7 +25,6 @@ const App = () => {
 
     return (
     <BrowserRouter>
-            <div className="">
                 <NavBar/>
              <Routes>
                 <Route path="/" element={<HomePage/>} />
@@ -43,7 +42,6 @@ const App = () => {
                 <Route path="/user/:slug" element={<SingleUserPage/>} />
                 
              </Routes>
-            </div>
     </BrowserRouter>
     )
 }

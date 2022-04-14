@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Recipe from './Recipe';
+import UserCard from './UserCard'
 
 const AllUsersPage = ({title, description, user_id, id}) => {
     const [users, setUsers] = useState([]);
     const [i, setI] = useState(0);
+    const [increment, setIncrement] = useState(0);
     const [arraySize, setArraySize] = useState(0);
     // const {slug} = useParams();
 
@@ -14,7 +16,7 @@ const AllUsersPage = ({title, description, user_id, id}) => {
                                                                     {
                                                                         setUsers(data); console.log(data);
                                                                         setArraySize(data.length);
-                                                                        console.log('array is', data);
+                                                                        console.log('array is', data, arraySize);
                                                                         
 
                                                                     }).catch(err => console.log(err))
@@ -25,9 +27,29 @@ const AllUsersPage = ({title, description, user_id, id}) => {
 
     }, [])
 
+  const IncrementValue = () => setIncrement(i+=1)
+
+
+  const UserDisplay = (users) => (
+      
+    <>
+        <table>
+            <tr>
+             {users.map((user) =>  ( 
+                <th> 
+                    <UserCard user={user} />
+                </th>
+                ))
+              } 
+              </tr>
+        </table>      
+
+    </>
+    )
     
 
-    // useEffect(() => {
+    // useEffect(() => { //                // <><UserCard user={user} /></> bootstrap row didnt work for above funcn, but UserDisplay did work with table; tr; and th looped over each element
+
     //     fetch(`/recipe/recipe/${slug}`).then(res => res.json()).then(data => 
     //           {
     //                 // console.log(data);                     
@@ -38,18 +60,21 @@ const AllUsersPage = ({title, description, user_id, id}) => {
     //  }, [])
    
     return (
-        <div className='container'>
-        <div>Hello, load recipe into useState variables then display it into a RecipeCard</div>
-        {/* {users.value[0]} */}
-         {console.log('arraySize ------->', arraySize)}
-         {console.log('users is --------->', users)}
-         {/* {users.map((user) => <>{user}</>)} */}
-        {/**load the user values into a useEffect statement, which'll loop over user.value.length */}
-        {/* look at deleteRecipe method on HomePage */}
-         {/* { i < arraySize ? (<><p>{users.value[i]}</p></>) : (<><p>none</p></>)}  */}
-        {users.map((user) =>  (<div className='container'><div className='row'><Link to ={`/user/${user}`}>{user}</Link></div></div>))}
-        
-        
+        <div className='container'>    
+            <div className='col-6'>
+          {users.map((user) =>    (<><>  {user} </></>)
+          
+          ) }
+          </div>
+          {/* <div className='container'>
+          <div className='col-6'>
+              <div className='row'>
+          {UserDisplay(users)}
+          </div>
+          </div>
+          </div> */}
+
+          {UserDisplay(users)}
         </div>
     )
 }

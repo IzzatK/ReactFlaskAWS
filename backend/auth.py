@@ -67,7 +67,6 @@ class Login(Resource):
 
         username=data.get('username')
         password=data.get('password')
-
         db_user=User.query.filter_by(username=username).first()
         db_userid=db_user.id
         db_username=db_user.username
