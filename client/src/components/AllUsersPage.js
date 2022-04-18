@@ -29,6 +29,25 @@ const AllUsersPage = ({title, description, user_id, id}) => {
 
   const IncrementValue = () => setIncrement(i+=1)
 
+  const renderRows = (users) => {
+    //   let results = item.results
+      let finalArr = [], columns = [];
+
+    users.forEach((user, i) => {
+        columns.push(
+            <th key={i}> 
+                    <UserCard user={user} />
+                </th>
+        )
+        if((i+1) % 3 === 0){
+            finalArr.push(<tr>{columns}</tr>)
+            columns = [];
+        }
+    })
+
+    return finalArr;
+  }
+
 
   const UserDisplay = (users) => (
       
@@ -75,6 +94,12 @@ const AllUsersPage = ({title, description, user_id, id}) => {
           </div> */}
 
           {UserDisplay(users)}
+
+          <table>
+              <tr>
+            {renderRows(users)}
+              </tr>
+          </table>
         </div>
     )
 }
