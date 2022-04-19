@@ -54,9 +54,9 @@ const AllUsersPage = ({title, description, user_id, id}) => {
     // array of N elements, where N is the number of rows needed
     const rows = [...Array( Math.ceil(users.length / 4) )]; //change the 4 4 4 values below to x x x to change amount of cols per row
     // chunk the products into the array of rows
-    const productRows = rows.map( (row, idx) => users.slice(idx * 4, idx * 4 + 4) ); ;
+    const userRows = rows.map( (row, idx) => users.slice(idx * 4, idx * 4 + 4) ); ;
     // map the rows as div.row
-    const content = productRows.map((row, idx) => (
+    const content = userRows.map((row, idx) => (
         <tr key={idx}>    
           { row.map( user => <th key={user} className="col-md-3">                    
           <                         UserCard user={user} />
@@ -73,7 +73,7 @@ const AllUsersPage = ({title, description, user_id, id}) => {
         )
 
        
-        }
+}
 
 //   const renderRows2 = (users) => {
 //     //   let results = item.results
@@ -148,11 +148,7 @@ const AllUsersPage = ({title, description, user_id, id}) => {
               </tr>
           </table> */}
 
-          <table>
-              <tr>
-            {renderRows2(users)}
-              </tr>
-          </table>
+         {renderRows2(users)}
         
 
           
