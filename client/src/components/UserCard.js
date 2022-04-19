@@ -14,7 +14,7 @@ const UserCard = ({user}) => {
                     className="img-thumbnail"
                     placeholder='profilepic'
                     /> */}
-                    {console.log('user value------>', user[0], user[1])}
+                    {/* {console.log('user value------>', user[0], user[1])} */}
                     <div className="card-body">
                     <h5 className="card-title">{user}</h5>
                     {/* <p className="card-text">{user}</p> */}

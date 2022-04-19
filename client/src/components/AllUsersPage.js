@@ -29,24 +29,71 @@ const AllUsersPage = ({title, description, user_id, id}) => {
 
   const IncrementValue = () => setIncrement(i+=1)
 
-  const renderRows = (users) => {
-    //   let results = item.results
-      let finalArr = [], columns = [];
+//   const renderRows = (users) => {
+//     //   let results = item.results
+//       let finalArr = [], columns = [];
 
-    users.forEach((user, i) => {
-        columns.push(
-            <th key={i}> 
-                    <UserCard user={user} />
-                </th>
+//     users.forEach((user, i) => {
+//         columns.push(
+//             <th key={i}> 
+//             {console.log('user is --------->', user, i)}
+//                     <UserCard user={user} />
+//             </th>
+//         )
+//         if((i+1) % 3 === 0){
+//             finalArr.push(<tr>{columns}</tr>)
+//             columns = [];
+//         }
+//     })
+
+//     return finalArr;
+//   } render rows of 3 cols each
+
+
+  const renderRows2 = (users) => {
+    // array of N elements, where N is the number of rows needed
+    const rows = [...Array( Math.ceil(users.length / 4) )]; //change the 4 4 4 values below to x x x to change amount of cols per row
+    // chunk the products into the array of rows
+    const productRows = rows.map( (row, idx) => users.slice(idx * 4, idx * 4 + 4) ); ;
+    // map the rows as div.row
+    const content = productRows.map((row, idx) => (
+        <tr key={idx}>    
+          { row.map( user => <th key={user} className="col-md-3">                    
+          <                         UserCard user={user} />
+                             </th> 
+           )}
+        </tr> )
+
+    )
+
+        return (
+            <table>
+                {content}
+            </table>
         )
-        if((i+1) % 3 === 0){
-            finalArr.push(<tr>{columns}</tr>)
-            columns = [];
-        }
-    })
 
-    return finalArr;
-  }
+       
+        }
+
+//   const renderRows2 = (users) => {
+//     //   let results = item.results
+//       let finalArr = [], columns = [];
+
+//     users.forEach((user, i) => {
+//         columns.push(
+//             <th key={i}> 
+//             {console.log('user is --------->', user, i)}
+//                     <UserCard user={user} />
+//             </th>
+//         )
+//         if((i+1) % 4 === 0){
+//             finalArr.push(<tr>{columns}</tr>)
+//             columns = [];
+//         }
+//     })
+
+//     return finalArr;
+//   }
 
 
   const UserDisplay = (users) => (
@@ -93,14 +140,25 @@ const AllUsersPage = ({title, description, user_id, id}) => {
           </div>
           </div> */}
 
-          {UserDisplay(users)}
+          {/* {UserDisplay(users)} */}
 
-          <table>
+          {/* <table>
               <tr>
             {renderRows(users)}
               </tr>
+          </table> */}
+
+          <table>
+              <tr>
+            {renderRows2(users)}
+              </tr>
           </table>
+        
+
+          
         </div>
+
+        
     )
 }
 
