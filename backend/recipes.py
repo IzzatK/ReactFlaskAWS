@@ -63,17 +63,17 @@ class RecipeResource(Resource):
         """Update a recipe"""
         recipe_to_update=Recipe.query.get_or_404(id)
         data=request.get_json()
-        resUserID = data.get('user_id')
+        resUserID = int(data.get('user_id'))
+        #convert the String type to Int, because it's passed into BackEnd from FrontEnd as type String
         user = recipe_to_update.user_id
         # user_id = user.id #use print statements for testing APIs
                          #if userID in localStorage FrontEnd == recipe.user_id
         print(resUserID, user)
-        if resUserID == user:
-            recipe_to_update.update(data.get('title'), data.get('description'))
-
-            return recipe_to_update
+        if resUserID != user:
+            print('youre not authorized for this action')
         else:
-            return
+            recipe_to_update.update(data.get('title'), data.get('description'))
+            return recipe_to_update
 
 
     
@@ -81,6 +81,12 @@ class RecipeResource(Resource):
     def delete(self,id):
         """Delete the recipe"""
         recipe_to_delete=Recipe.query.get_or_404(id)
+        data=request.get_json()
+
+        resUserID = int(data.get('user_id'))
+        user = recipe_to_delete.user_id
+
+        
 
         recipe_to_delete.delete()
 

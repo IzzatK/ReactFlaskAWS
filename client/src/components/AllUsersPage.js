@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Recipe from './Recipe';
 import UserCard from './UserCard'
+import '../styles/main.css'
 
 const AllUsersPage = ({title, description, user_id, id}) => {
     const [users, setUsers] = useState([]);
@@ -59,6 +60,57 @@ const AllUsersPage = ({title, description, user_id, id}) => {
     const content = userRows.map((row, idx) => (
         <tr key={idx}>    
           { row.map( user => <th key={user} className="col-md-3">                    
+          <                         UserCard user={user} />
+                             </th> 
+           )}
+        </tr> )
+
+    )
+
+        return (
+            <table>
+                {content}
+            </table>
+        )
+
+       
+}
+
+const renderRows3 = (users) => {
+    // array of N elements, where N is the number of rows needed
+    const rows = [...Array( Math.ceil(users.length / 4) )]; //change the 4 4 4 values below to x x x to change amount of cols per row
+    // chunk the products into the array of rows
+    const userRows = rows.map( (row, idx) => users.slice(idx * 7, idx * 7 + 7) ); ;
+    // map the rows as div.row
+    const content = userRows.map((row, idx) => (
+        <tr key={idx}>    
+          { row.map( user => <th key={user} className="col-md-1">                    
+          <                         UserCard user={user} />
+                             </th> 
+           )}
+        </tr> )
+
+    )
+
+        return (
+            <table>
+                {content}
+            </table>
+        )
+
+       
+}
+
+const renderRows4 = (users) => {
+    // array of N elements, where N is the number of rows needed. Change the divisor of rows to 3 if a 3rd row is needed.
+    //because users length is 8 and ceiling of 8/3 is 3, resulting in 3 rows
+    const rows = [...Array( Math.ceil(users.length / 3) )]; //change the 4 4 4 values below to x x x to change amount of cols per row
+    // chunk the products into the array of rows
+    const userRows = rows.map( (row, idx) => users.slice(idx * 3, idx * 3 + 3) ); ;
+    // map the rows as div.row
+    const content = userRows.map((row, idx) => (
+        <tr key={idx}>    
+          { row.map( user => <th key={user} className="col-md-1">                    
           <                         UserCard user={user} />
                              </th> 
            )}
@@ -147,9 +199,14 @@ const AllUsersPage = ({title, description, user_id, id}) => {
             {renderRows(users)}
               </tr>
           </table> */}
-
-         {renderRows2(users)}
+    <div id="displaySMdown">{renderRows2(users)}</div>
+         
         
+      <div id="displayMDup">{renderRows3(users)}</div>  
+
+      <div id="displayXSdown">{renderRows4(users)}</div> 
+
+      <div id="displayLGup">{/**display rows of 11 usercards each here. probably must add rows to fit users in other functions as done in renderRows4. */}</div>
 
           
         </div>
