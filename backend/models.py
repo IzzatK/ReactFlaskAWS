@@ -16,6 +16,7 @@ class Recipe(db.Model):
     description = db.Column(db.Text(), nullable=False)
     user_id=db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
     username=db.Column(db.String(), nullable=False)
+    # recipe_file=db.Column(db.String(), nullable=True, default='default.pdf')
     # comments=db.Column(db.String(), db.ForeignKey('user.id'), nullable=False)
     
 

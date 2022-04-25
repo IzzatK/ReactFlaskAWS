@@ -16,6 +16,7 @@ recipe_model=recipe_ns.model(
         "description":fields.String(),
         "user_id": fields.Integer(),
         "username": fields.String(),
+        # "recipe_file": fields.String()
     }
 )
 
@@ -46,6 +47,15 @@ class RecipeResource(Resource):
 
         new_recipe.save()
         return new_recipe,201
+
+@recipe_ns.route('/recipe/postfile/<int:id>')
+class RecipeResource(Resource):
+    @recipe_ns.marshal_with(recipe_model)
+    def put(self,id):
+        """Update a recipe"""
+        recipe_to_update=Recipe.query.get_or_404(id)
+        file = request.files.getlist("file")
+        print(file)
 
 @recipe_ns.route('/recipe/<int:id>')
 class RecipeResource(Resource):
@@ -85,10 +95,11 @@ class RecipeResource(Resource):
 
         resUserID = int(data.get('user_id'))
         user = recipe_to_delete.user_id
-
         
-
-        recipe_to_delete.delete()
+        if resUserID != user:
+            print('youre not authorized for this action')
+        else:
+            recipe_to_delete.delete()
 
         return recipe_to_delete
 

@@ -70,6 +70,11 @@ const HomePage = () => { /* copy this format to create recipes page user account
 
         }
 
+        const submitUserID = (e) => {
+            e.preventDefault();
+            {register('user_id',{value: userID}, {required:true})}
+        }
+
          const updateRecipe = (data, recipe) => {
                
             // console.log(userID) value: userID
@@ -94,12 +99,13 @@ const HomePage = () => { /* copy this format to create recipes page user account
                  .then(data => {reset(); window.location.reload()}).catch(err => console.log(err))
         }
 
-        const deleteRecipe = (recipe) => {
+        const deleteRecipe = (data, recipe) => {
             const requestOptions = {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json'
-                }
+                },
+                body: JSON.stringify(data)
             }
     
             fetch(`/recipe/recipe/${recipeID}`, requestOptions).then(res => res.json())
@@ -209,7 +215,8 @@ const HomePage = () => { /* copy this format to create recipes page user account
                                                 </div>
                                               <div class="modal-body">
                                                  <form>
-                                                    
+                                                 <button className="mb-2 "onClick={(e) => submitUserID(e)}>Confirm post details</button>
+
                                 
 
                                                     <div className='form-group mt-2'>
