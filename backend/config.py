@@ -22,7 +22,7 @@ class TestConfig(Config):
 
 
 class NewConfig(Config):
-    SQLALCHEMY_DATABASE_URI="postgresql://postgres@localhost/finalrecipesapp2"
+    SQLALCHEMY_DATABASE_URI="postgresql://postgres:getlucky15@localhost/finalrecipesapp2"
     # SQLALCHEMY_ECHO=True
     DEBUG=True
 
