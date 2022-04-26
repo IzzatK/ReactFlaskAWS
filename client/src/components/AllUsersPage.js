@@ -103,8 +103,9 @@ const renderRows3 = (users) => {
 
 const renderRows4 = (users) => {
     // array of N elements, where N is the number of rows needed. Change the divisor of rows to 3 if a 3rd row is needed.
-    //because users length is 8 and ceiling of 8/3 is 3, resulting in 3 rows
-    const rows = [...Array( Math.ceil(users.length / 3) )]; //change the 4 4 4 values below to x x x to change amount of cols per row
+    //because users length is 8 and ceiling of 8/2.5 is 4, resulting in 4 rows
+    //or user Math.floor func'n
+    const rows = [...Array( Math.ceil(users.length / 2.5) )]; //change the 4 4 4 values below to x x x to change amount of cols per row
     // chunk the products into the array of rows
     const userRows = rows.map( (row, idx) => users.slice(idx * 3, idx * 3 + 3) ); ;
     // map the rows as div.row
