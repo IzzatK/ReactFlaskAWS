@@ -5,6 +5,7 @@ import Recipe from './Recipe';
 const RecipePage = ({title, description, user_id, id}) => {
     const [recipe, setRecipe] = useState([]);
     const [file, setFiles] = useState([]);
+    const [fileName, setFileName] = useState("filenamehere");
     const {slug} = useParams();
 
     useEffect(() => {
@@ -19,13 +20,15 @@ const RecipePage = ({title, description, user_id, id}) => {
     const getPhoto = (e) => {
         e.preventDefault();
 
-        let reader = new FileReader();
+        // let reader = new FileReader();
         let file = e.target.files[0];
 
-        reader.onloadend = () => {
-            setFiles(file)
-        } //might not need reader.onloadend callback
-        reader.readAsDataURL(file);
+        //  reader.onloadend = () => {
+        //      setFiles(file)
+        //  } //might not need reader.onloadend callback
+        // reader.readAsDataURL(file);
+
+        setFiles(file)
 
         console.log('file is -------->', file);
 
@@ -33,7 +36,18 @@ const RecipePage = ({title, description, user_id, id}) => {
 
     const pressButton = (e) => {
         e.preventDefault();
-        console.log('file is -------->', file);
+        console.log('file inside get it is -------->', file);
+
+        const formData = new FormData();
+        formData.append("file", file)
+        formData.append("fileName", fileName)
+        console.log('file form data is  -------->', formData)
+        const requestOptions = {
+            method: 'POST',
+            body: formData
+        }
+
+        fetch(`http://localhost:5000/upload/upload`, requestOptions).then(res => res.json()).catch(error => console.log(error))
 
     }
 
@@ -51,8 +65,10 @@ const RecipePage = ({title, description, user_id, id}) => {
         <div className='container'>
         <div>Hello, load recipe into useState variables then display it into a RecipeCard</div>
         <Recipe username={recipe.username} id={recipe.id} title={recipe.title} description={recipe.description} user_id={recipe.user_id} />
-        <form action='.' enctype="multipart/form-data">
-                <input type='file'  onChange={getPhoto}/>
+        <form enctype="multipart/form-data" method="post">
+                <div>
+                </div>
+                <input type="file" name="file" onChange={getPhoto} />
                 <button onClick={pressButton}> Get it </button>
               </form>
         </div>

@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from recipes import recipe_ns
 from auth import auth_ns
+from uploads import upload_ns
 from flask_cors import CORS
 
 
@@ -29,6 +30,7 @@ def create_app(config):
 
     api.add_namespace(recipe_ns)
     api.add_namespace(auth_ns)
+    api.add_namespace(upload_ns)
 
     #model (serializer)
 
