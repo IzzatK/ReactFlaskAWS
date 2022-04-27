@@ -6,6 +6,11 @@
     font-size:48px;
 }
 
+#allusers {
+    position: relative;
+    top:7.567px;
+}
+
 .form {
     margin:auto;
     width:80%;

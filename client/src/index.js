@@ -13,6 +13,7 @@ import CreateRecipePage from './components/CreateRecipe';
 import RecipePage from './components/RecipePage';
 import AllUsersPage from './components/AllUsersPage';
 import SingleUserPage from './components/SingleUserPage';
+import FileDisplayPage from './components/FileDisplayPage'
 
 const App = () => {
 
@@ -40,6 +41,8 @@ const App = () => {
                 <Route path="/users" element={<AllUsersPage/>} />
 
                 <Route path="/user/:slug" element={<SingleUserPage/>} />
+
+                <Route path="/file/display" element={<FileDisplayPage />} />
                 
              </Routes>
     </BrowserRouter>

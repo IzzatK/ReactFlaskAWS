@@ -1,6 +1,6 @@
 import os
 from flask import request, redirect
-from s3functions import upload_file
+from s3functions import upload_file, show_image
 from flask_restx import Namespace, Resource
 from werkzeug.utils import secure_filename
 
@@ -20,3 +20,7 @@ class UploadResource(Resource):
             f.save(os.path.join(UPLOAD_FOLDER, secure_filename(f.filename)))
             upload_file(f"uploads/{f.filename}", BUCKET)
             return "success"
+
+    def get(self):
+        contents = show_image(BUCKET)
+        return contents

@@ -199,7 +199,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
                                             </div>
                                             </div>
 
-                                            <button type="button" id="deletebutton" onClick={() => showModal(recipe.id)} class="btn btn-danger ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                            <button type="button" id="deletebutton" onClick={() => showModal(recipe.id)} class="btn btn-danger text-dark ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                             delete Recipe
                                             </button>
 

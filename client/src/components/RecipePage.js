@@ -63,7 +63,7 @@ const RecipePage = ({title, description, user_id, id}) => {
    
     return (
         <div className='container'>
-        <div>Hello, load recipe into useState variables then display it into a RecipeCard</div>
+        {/* <div>Hello, load recipe into useState variables then display it into a RecipeCard</div> */}
         <Recipe username={recipe.username} id={recipe.id} title={recipe.title} description={recipe.description} user_id={recipe.user_id} />
         <form enctype="multipart/form-data" method="post">
                 <div>
