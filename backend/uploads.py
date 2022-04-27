@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 
 
 
-UPLOAD_FOLDER = "/uploads"
+UPLOAD_FOLDER = "uploads"
 BUCKET="fileiobucket"
 
 upload_ns=Namespace('upload', description="A namespace for uploads")
