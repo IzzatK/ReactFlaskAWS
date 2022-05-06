@@ -20,10 +20,10 @@ const FileDisplayPage = () => {
     return (
         <div>
         <p>File display here</p>
-            {/* {files}   `'${f}'` */}
-            <div>{files.map((f) => (<div> <PDFViewer document={{url: f }} />  </div>))}</div>
+            {/* {files}   `'${f}'` */} {/** create a Link which'll pass in the url as props into the reusable SingleFile component */}
+            <div>{files.map((f, i) => (<div> <PDFViewer document={{url: f }} />  <Link to={`/singlefile/${i}`} > Link Here</Link> </div>))}</div>
             {/* <div>{files.map((f) => (<div> <img src={f} />  </div>))}</div> */}
-            <>{files.map((f) => (<div><Link to= {``} /></div>))}</>
+            <>{files.map((f, i) => (<div><Link to= {`/singlfile/${i}`} /></div>))}</>
 
         </div>
     )

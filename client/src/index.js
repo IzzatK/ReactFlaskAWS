@@ -5,17 +5,42 @@ import ReactDOM from 'react-dom'
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 import NavBar from './components/NavBar';
+import {Provider} from 'react-redux'
 import HomePage from './components/Home';
 import SignUpPage from './components/SignUp';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+import {KeycloakProvider} from 'react-keycloak'
+import keycloak from './keycloak'
 import LoginPage from './components/Login';
 import CreateRecipePage from './components/CreateRecipe';
 import RecipePage from './components/RecipePage';
 import AllUsersPage from './components/AllUsersPage';
 import SingleUserPage from './components/SingleUserPage';
 import FileDisplayPage from './components/FileDisplayPage'
+import SingleFilePage from './components/SingleFilePage';
+import ProtectedRoute from './helpers/ProtectedRoute'
+import Secured from './pages/Securedpage';
+import {configureStore} from '@reduxjs/toolkit'
+import rootReducer from './helpers/indexRedux';
+import { userReducer } from './helpers/userReducer';
+
+const keycloakProviderInitConfig = {
+   onLoad: 'check-sso',
+ }
 
 const App = () => {
+   const store = configureStore({reducer: {
+      user: userReducer
+   }})
+
+   const eventLogger = (event ,error) => {
+      console.log('onKeycloakEvent', event, error)
+    }
+    
+    const tokenLogger = (tokens) => {
+      console.log('onKeycloakTokens', tokens)
+    }
 
     // useEffect(
     //     () => {
@@ -25,28 +50,38 @@ const App = () => {
     // const [message, setMessage] = useState("")
 
     return (
-    <BrowserRouter>
-                <NavBar/>
-             <Routes>
-                <Route path="/" element={<HomePage/>} />
-            
-                <Route path="/signup" element={<SignUpPage/>} />
-                
-                <Route path="/login" element={<LoginPage/>} />
-                
-                <Route path="/create-recipe" element={<CreateRecipePage/>} />
+<KeycloakProvider onEvent={eventLogger} onTokens={tokenLogger}
+initOptions={{ onLoad: 'login-required' }} keycloak={keycloak}>
+   <Provider store={store}>
+      <BrowserRouter>
+                  <NavBar/>
+               <Routes>
+                  <Route path="/" element={<HomePage/>} />
+               
+                  <Route path="/signup" element={<SignUpPage/>} />
+                  
+                  <Route path="/login" element={<LoginPage/>} />
+                  
+                  <Route path="/create-recipe" element={<CreateRecipePage/>} />
 
-                <Route path="/recipe/recipe/:slug" element={<RecipePage />} />
+                  <Route path="/recipe/recipe/:slug" element={<RecipePage />} />
 
-                <Route path="/users" element={<AllUsersPage/>} />
+                  <Route path="/users" element={<AllUsersPage/>} />
 
-                <Route path="/user/:slug" element={<SingleUserPage/>} />
+                  <Route path="/user/:slug" element={<SingleUserPage/>} />
 
-                <Route path="/file/display" element={<FileDisplayPage />} />
-                
-             </Routes>
-    </BrowserRouter>
+                  <Route path="/file/display" element={<FileDisplayPage />} />
+
+                  <Route path={`/singlefile/:slug`} element={<SingleFilePage />} />
+
+                  <Route path="/securedpage" element={<ProtectedRoute><Secured /> </ProtectedRoute>} />
+
+                  
+               </Routes>
+      </BrowserRouter>
+   </Provider>
+</KeycloakProvider>
     )
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'))
+ReactDOM.render( <App/> , document.getElementById('root'))

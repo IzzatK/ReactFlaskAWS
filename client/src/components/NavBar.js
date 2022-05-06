@@ -1,4 +1,6 @@
+import { useKeycloak } from 'react-keycloak'
 import React, {useEffect, useState} from 'react'
+import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import {useAuth} from '../auth'
 import '../styles/main.css'
@@ -8,6 +10,7 @@ const logout = () => {
     localStorage.removeItem("id");
     window.location.reload();
 }
+
 
 
 const LoggedInLinks = () => {
@@ -52,12 +55,24 @@ const LoggedOutLinks = () => {
         <li className="nav-item">
             <Link className="nav-link" to="/login">Log In</Link>
         </li>
+
+       
+
         </ul>
         </>
     )
 }
 
+
+
 const NavBar = () => {
+
+    const {keycloak, initialized} = useKeycloak();
+
+
+    const login = useCallback(() => {
+        keycloak.login()
+    }, [keycloak])
 
      const [logged, setLogged] =useState(false);
 
@@ -83,6 +98,29 @@ const NavBar = () => {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
                 </button>
+
+                <div className="hover:text-gray-200">
+                 {!keycloak.authenticated && (
+                   <button
+                     type="button"
+                     className="text-blue-800"
+                     onClick={login}
+                   >
+                     Login
+                   </button>
+                 )}
+
+                 {!!keycloak.authenticated && (
+                   <button
+                     type="button"
+                     className="text-blue-800"
+                     onClick={() => keycloak.logout()}
+                   >
+                     Logout ({keycloak.tokenParsed.preferred_username})
+                   </button>
+                 )}
+               </div>
+                
                 <div className="collapse navbar-collapse" id="navbarNav">
                     
                     { logged ? <LoggedInLinks/> : <LoggedOutLinks />} 
@@ -92,6 +130,7 @@ const NavBar = () => {
                     </li> */}
                    
                 </div>
+
              </div>
             </nav>
         </div>
