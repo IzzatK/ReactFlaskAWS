@@ -49,14 +49,14 @@ class RecipeResource(Resource):
         new_recipe.save()
         return new_recipe,201
 
-@recipe_ns.route('/recipe/postfile/<int:id>')
-class RecipeResource(Resource):
-    @recipe_ns.marshal_with(recipe_model)
-    def put(self,id):
-        """Update a recipe"""
-        recipe_to_update=Recipe.query.get_or_404(id)
-        file = request.files.getlist("file")
-        print(file)
+# @recipe_ns.route('/recipe/postfile/<int:id>')
+# class RecipeResource(Resource):
+#     @recipe_ns.marshal_with(recipe_model)
+#     def put(self,id):
+#         """Update a recipe"""
+#         recipe_to_update=Recipe.query.get_or_404(id)
+#         file = request.files.getlist("file")
+#         print(file)
 
 @recipe_ns.route('/recipe/<int:id>')
 class RecipeResource(Resource):

@@ -125,11 +125,17 @@ const HomePage = () => { /* copy this format to create recipes page user account
                   }).catch(err => console.log(err))
 
 
-                  const userid = localStorage.getItem("id");
-        setUserID(userid)
+                  fetch(`/auth/userid/${keycloak.tokenParsed.preferred_username}`).then(res => res.json()).then(data => {
+                      setUserID(data);
+                      console.log('data is -------->', data);
+                      localStorage.setItem("id", data)
+                  }).catch(err => console.log(err))
+
         console.log('user ID is ----------->', userID)
 
         localStorage.setItem("username", keycloak.tokenParsed.preferred_username)
+        // localStorage.setItem("id", userID)
+
                 //   { register('title', {value: title} )}
                 //   { register('description', {value: description})}
          }, [])

@@ -110,6 +110,13 @@ class UsersResource(Resource):
             
         return data
 
+@auth_ns.route('/userid/<string:username>')
+class UserIDResource(Resource):
+    def get(self, username):
+        user = User.query.filter_by(username=username).first_or_404()
+        print(user.id)
+        return user.id
+
 
 
 
