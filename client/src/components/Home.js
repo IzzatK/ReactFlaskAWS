@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { useKeycloak } from 'react-keycloak'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import '../../src/styles/main.css'
@@ -10,6 +11,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
     
     const [logged, setLogged] = useState(false);
     const [isAuthor, setIsAuthor] = useState(false);
+    const {keycloak} = useKeycloak();
 
     const LoggedInHome = () => {
          const [recipes, setRecipes] = useState([]);
@@ -126,6 +128,8 @@ const HomePage = () => { /* copy this format to create recipes page user account
                   const userid = localStorage.getItem("id");
         setUserID(userid)
         console.log('user ID is ----------->', userID)
+
+        localStorage.setItem("username", keycloak.tokenParsed.preferred_username)
                 //   { register('title', {value: title} )}
                 //   { register('description', {value: description})}
          }, [])
@@ -133,7 +137,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
          return (
              <div>
                  
-                 <h1 id="welcomeheader">Welcome user</h1>
+                 <h1 id="welcomeheader">Welcome user {keycloak.tokenParsed.email}</h1>
              
                  {/* <button onClick={console.log(recipes)}>recipes here</button> */}
 
@@ -260,7 +264,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
     return (
         <div className="home container">
             <h1 id="heading" >Welcome to Recipes Page</h1>
-             {logged ?  <LoggedInHome /> : <Link to="/signup" className="btn btn-submit btn-secondary btn-lg">Signup</Link> /* insert username here*/}
+             {keycloak.authenticated ?  <LoggedInHome /> : <Link to="/signup" className="btn btn-submit btn-secondary btn-lg">Signup</Link> /* insert username here*/}
         </div>
     )
 }
