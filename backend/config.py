@@ -26,6 +26,11 @@ class NewConfig(Config):
     # SQLALCHEMY_ECHO=True
     DEBUG=True
 
+class KeycloakConfig(Config):
+    SQLALCHEMY_DATABASE_URI="postgresql://postgres:getlucky15@localhost/keycloakrecipeapp"
+    # SQLALCHEMY_ECHO=True
+    DEBUG=True
+
 
 
 

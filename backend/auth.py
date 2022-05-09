@@ -15,7 +15,6 @@ signup_model=auth_ns.model(
     {
         "username":fields.String(),
         "email":fields.String(),
-        "password":fields.String()
     }
 )
 
@@ -51,7 +50,6 @@ class SignUp(Resource):
             id=count,
             username=data.get('username'),
             email=data.get('email'),
-            password=generate_password_hash(data.get('password'))
         )
         
         new_user.save()

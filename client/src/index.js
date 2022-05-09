@@ -40,6 +40,9 @@ const App = () => {
     
     const tokenLogger = (tokens) => {
       console.log('onKeycloakTokens', tokens)
+
+      //dispatch the tokens and into userReducer and username into LocalStorage using similar logic in 
+      //Washdapp MERN stack
     }
 
     // useEffect(

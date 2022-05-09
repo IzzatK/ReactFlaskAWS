@@ -55,6 +55,9 @@ const LoggedOutLinks = () => {
         <li className="nav-item">
             <Link className="nav-link" to="/login">Log In</Link>
         </li>
+        <li className="nav-item">
+            <Link className="nav-link" to="/securedpage">Secured Page</Link>
+        </li>
 
        
 
@@ -69,26 +72,65 @@ const NavBar = () => {
 
     const {keycloak, initialized} = useKeycloak();
 
-
+    
     const login = useCallback(() => {
-        keycloak.login()
+        keycloak.login();
+        // keycloak.login()    .then(res => res.json).then(data =>{ console.log(data);
+        //  }).catch(err => console.log(err))
     }, [keycloak])
 
      const [logged, setLogged] =useState(false);
 
-
      useEffect(() => {
-         var id = localStorage.getItem("id")
-        if(typeof id  !== 'undefined' && id !== null)
-        {
-            setLogged(true)
-        }
-        else 
-        {
-            setLogged(false)
-        }
-        console.log('logged value ------->', logged)
-    }, [])
+
+     })
+
+
+    //  useEffect(() => {
+    //      var id = localStorage.getItem("id")
+    //     if(keycloak.tokenParsed) // keycloak.tokenParsed.preferred_username
+    //     {
+    //         setLogged(true);
+    //         console.log('logged value ------->', logged, keycloak.authenticated)
+
+    //     }
+    //     else 
+    //     {
+    //         setLogged(false)
+    //         console.log('logged value ------->', logged, keycloak.authenticated)
+    //         const count = 1;
+    //         const i = 0
+    //         while (i < count) {
+    //            window.location.reload();
+
+    //         }
+           
+
+    //     }
+    //     // console.log('logged value ------->', logged, keycloak.authenticated)
+        
+
+
+    // }, [])
+
+    // useEffect(() => {
+        
+    // })
+
+    // componentDidMount = () => {
+    //     if(!!keycloak.authenticated) 
+    //     {
+    //             console.log('hello');
+    //     }
+    //     else 
+    //     {
+    //         console.log('youre not authenticated in')
+    //     }
+    // }
+
+    const consoleLog = () => {
+        console.log(keycloak.authenticated);
+    }
 
     return (
         <div>
@@ -98,6 +140,13 @@ const NavBar = () => {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
                 </button>
+        {/* {  !!keycloak.authenticated ?
+        
+            setLogged(true);
+            console.log('logged value ------->', logged, keycloak.authenticated) : 'none'
+
+        } */}
+        {/* {!!keycloak.authenticated ? (setLogged(true)) : ('none')} */}
 
                 <div className="hover:text-gray-200">
                  {!keycloak.authenticated && (
@@ -116,6 +165,7 @@ const NavBar = () => {
                      className="text-blue-800"
                      onClick={() => keycloak.logout()}
                    >
+                       {/* {keycloak.} */}
                      Logout ({keycloak.tokenParsed.preferred_username})
                    </button>
                  )}

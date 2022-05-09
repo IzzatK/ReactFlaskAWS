@@ -51,7 +51,6 @@ class User(db.Model):
     id=db.Column(db.Integer(), primary_key=True)
     username=db.Column(db.String(), nullable=False, unique=True)
     email=db.Column(db.String(), nullable=False, unique=True)
-    password=db.Column(db.Text(), nullable=False)
     recipes=db.relationship('Recipe', backref='author', lazy=True)
     # comments=db.relationship('Recipe', backref='commentauthor', lazy=True)
 
