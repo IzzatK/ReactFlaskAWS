@@ -6,10 +6,13 @@ import {useAuth} from '../auth'
 import '../styles/main.css'
 //conditional render the Sign Up header if user.id is saved in localStorage (AKA user is logged in)
 
-const logout = () => {
-    localStorage.removeItem("id");
-    window.location.reload();
-}
+// const logout = () => {
+//     localStorage.removeItem("id");
+//     window.location.reload();
+// }
+
+const lsUsername = localStorage.getItem("username")
+
 
 
 
@@ -32,9 +35,9 @@ const LoggedInLinks = () => {
                 <li className="nav-item " id="allusers">
                 <Link className="nav-link " to="/file/display">See S3 Files</Link>
                 </li>
-                <li className="nav-item ">
+                {/* <li className="nav-item ">
                 <button class="btn btn-danger navbar-btn"> <Link className="nav-link text-dark " to="" onClick={logout}>Log Out</Link> </button>
-                </li>
+                </li> */}
          </ul>
         </>
     )
@@ -78,6 +81,12 @@ const NavBar = () => {
         // keycloak.login()    .then(res => res.json).then(data =>{ console.log(data);
         //  }).catch(err => console.log(err))
     }, [keycloak])
+
+    const logout = () => {
+        keycloak.logout();
+        localStorage.removeItem("username");
+        // window.location.reload();
+    }
 
      const [logged, setLogged] =useState(false);
 
@@ -160,20 +169,20 @@ const NavBar = () => {
                  )}
 
                  {!!keycloak.authenticated && (
-                   <button
-                     type="button"
+                   <Link
+                     to='/logout'
                      className="text-blue-800"
-                     onClick={() => keycloak.logout()}
+                     onClick={logout}
                    >
                        {/* {keycloak.} */}
-                     Logout ({keycloak.tokenParsed.preferred_username})
-                   </button>
+                     Welcome ({keycloak.tokenParsed.preferred_username})
+                   </Link>
                  )}
                </div>
                 
                 <div className="collapse navbar-collapse" id="navbarNav">
                     
-                    { logged ? <LoggedInLinks/> : <LoggedOutLinks />} 
+                    { !!keycloak.authenticated ? <LoggedInLinks/> : <LoggedOutLinks />} 
                    
                     {/* <li className="nav-item">
                         <a className="nav-link disabled" href="#">Disabled</a>

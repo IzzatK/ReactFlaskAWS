@@ -24,6 +24,7 @@ import Secured from './pages/Securedpage';
 import {configureStore} from '@reduxjs/toolkit'
 import rootReducer from './helpers/indexRedux';
 import { userReducer } from './helpers/userReducer';
+import RegisterPage from './components/RegisterPage';
 
 const keycloakProviderInitConfig = {
    onLoad: 'check-sso',
@@ -78,6 +79,11 @@ initOptions={{ onLoad: 'login-required' }} keycloak={keycloak}>
                   <Route path={`/singlefile/:slug`} element={<SingleFilePage />} />
 
                   <Route path="/securedpage" element={<ProtectedRoute><Secured /> </ProtectedRoute>} />
+
+                  <Route path="/registerpostgre" element={<ProtectedRoute><RegisterPage /> </ProtectedRoute>} />
+
+
+
 
                   
                </Routes>
