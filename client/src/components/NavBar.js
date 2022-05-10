@@ -53,14 +53,9 @@ const LoggedOutLinks = () => {
         </ul>
         <ul className="navbar-nav">
         <li className="nav-item"> 
-            <Link className="nav-link" to="/signup">Sign Up</Link>
+            <Link className="nav-link" to="/registerpostgre">Sign Up</Link>
         </li>
-        <li className="nav-item">
-            <Link className="nav-link" to="/login">Log In</Link>
-        </li>
-        <li className="nav-item">
-            <Link className="nav-link" to="/securedpage">Secured Page</Link>
-        </li>
+      
 
        
 
@@ -175,7 +170,7 @@ const NavBar = () => {
                      onClick={logout}
                    >
                        {/* {keycloak.} */}
-                     Welcome ({keycloak.tokenParsed.preferred_username})
+                     Logout ({keycloak.tokenParsed.preferred_username})
                    </Link>
                  )}
                </div>
