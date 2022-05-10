@@ -41,6 +41,7 @@ const App = () => {
     
     const tokenLogger = (tokens) => {
       console.log('onKeycloakTokens', tokens)
+      localStorage.setItem("token", tokens.idToken) //idToken, refreshToken, and token fields
 
       //dispatch the tokens and into userReducer and username into LocalStorage using similar logic in 
       //Washdapp MERN stack
@@ -74,7 +75,7 @@ initOptions={{ onLoad: 'login-required' }} keycloak={keycloak}>
 
                   <Route path="/user/:slug" element={<SingleUserPage/>} />
 
-                  <Route path="/file/display" element={<FileDisplayPage />} />
+                  <Route path="/file/display" element={<ProtectedRoute><FileDisplayPage /></ProtectedRoute>} />
 
                   <Route path={`/singlefile/:slug`} element={<SingleFilePage />} />
 

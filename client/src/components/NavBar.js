@@ -24,15 +24,16 @@ const LoggedInLinks = () => {
                 <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                 </li>
             
-                <li className="nav-item">
-                <Link className="nav-link" to="/create-recipe">Create Recipes</Link>
-                </li>
+                
          </ul>
          <ul className="nav navbar-nav navbar-right ms-auto">
-                <li className="nav-item " id="allusers">
+                <li className="nav-item " >
                 <Link className="nav-link " to="/users">All Users</Link>
                 </li>
-                <li className="nav-item " id="allusers">
+                <li className="nav-item" >
+                <Link className="nav-link" to="/create-recipe">Create Recipes</Link>
+                </li>
+                <li className="nav-item " >
                 <Link className="nav-link " to="/file/display">See S3 Files</Link>
                 </li>
                 {/* <li className="nav-item ">
