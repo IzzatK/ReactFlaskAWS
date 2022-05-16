@@ -72,11 +72,15 @@ const NavBar = () => {
     const {keycloak, initialized} = useKeycloak();
 
     
-    const login = useCallback(() => {
-        keycloak.login();
-        // keycloak.login()    .then(res => res.json).then(data =>{ console.log(data);
-        //  }).catch(err => console.log(err))
-    }, [keycloak])
+    // const login = useCallback(() => {
+    //     keycloak.login();
+    //     // keycloak.login()    .then(res => res.json).then(data =>{ console.log(data);
+    //     //  }).catch(err => console.log(err))
+    // }, [keycloak])
+
+    const login = () => {
+        keycloak.login()
+    }
 
     const logout = () => {
         keycloak.logout();

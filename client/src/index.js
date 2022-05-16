@@ -55,8 +55,8 @@ const App = () => {
     // const [message, setMessage] = useState("")
 
     return (
-<KeycloakProvider onEvent={eventLogger} onTokens={tokenLogger}
-initOptions={{ onLoad: 'login-required' }} keycloak={keycloak}>
+<KeycloakProvider initOptions={{ onLoad: 'login-required' }} onEvent={eventLogger} onTokens={tokenLogger}
+ keycloak={keycloak}>
    <Provider store={store}>
       <BrowserRouter>
                   <NavBar/>

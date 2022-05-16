@@ -5,6 +5,23 @@ import random
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
+from keycloak import KeycloakOpenID, KeycloakAdmin
+
+
+keycloak_openid = KeycloakOpenID(server_url="http://localhost:8080/auth/",
+                    client_id="React-auth",
+                    realm_name="keycloak-react-auth"
+                    )
+
+keycloak_admin = KeycloakAdmin(server_url="http://localhost:8080/auth/",
+                              realm_name="keycloak-react-auth",
+                               username='cli-admin',
+                               password='getlucky15'
+                    )
+
+                #keycloak_admin.users_count()
+                #admin user above must be created within the realm, given admin permissions in credentials/permissions tab, then restart the server
+
 
 auth_ns=Namespace('auth', description="A namespace for our Auth")
 
@@ -25,6 +42,8 @@ login_model=auth_ns.model(
         "password":fields.String()
     }
 )
+
+
 
 
 
@@ -116,6 +135,47 @@ class UserIDResource(Resource):
         user = User.query.filter_by(username=username).first_or_404()
         print(user.id)
         return user.id
+
+@auth_ns.route('/user/registerkeycloak')
+class UserKeycloak(Resource):
+    def post(self):
+        data = request.get_json()
+        email = data.get('email')
+        username = data.get('username')
+        firstName = data.get('firstname')
+        lastName = data.get('lastname')
+        password = data.get('password')
+
+
+
+        new_user = keycloak_admin.create_user({"email": email,
+                    "username": username,
+                    "enabled": True,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "credentials": [{"value": "secret","type": password,}]})
+
+
+@auth_ns.route('/user/loginkeycloak')
+class UserLoginKeycloak(Resource):
+    def post(self):
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        token = keycloak_openid.token(username, password)
+        userinfo = keycloak_openid.userinfo(token['access_token'])
+        # username2 = keycloak_openid.userinfo.name(token['access_token'])
+        print('userinfo ---------------->', userinfo.get('preferred_username'))
+        print('type ---------------->', type(userinfo))
+        #print('userinfo ---------------->', userinfo)
+
+        # print('get userinfo values', userinfo['username'])
+
+
+
+        # print(token)
+
+
 
 
 
