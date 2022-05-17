@@ -171,7 +171,13 @@ class UserLoginKeycloak(Resource):
         # username2 = keycloak_openid.userinfo.name(token['access_token'])
         print('userinfo ---------------->', userinfo.get('preferred_username'))
         print('type ---------------->', type(userinfo))
-        #print('userinfo ---------------->', userinfo))
+        # print('userinfo ---------------->', userinfo)
+        return make_response(jsonify({"access_token":token['access_token'],
+                                      "refresh_token":token['refresh_token'],
+                                       "username": userinfo.get('preferred_username'),
+                                       "id": userinfo.get('sub')          }),207)
+
+        
         #lookup docs for keycloak-python flask package
         # print('get userinfo values', userinfo['username'])
 

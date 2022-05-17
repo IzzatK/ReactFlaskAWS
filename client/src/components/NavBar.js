@@ -159,13 +159,7 @@ const NavBar = () => {
 
                 <div className="hover:text-gray-200">
                  {!keycloak.authenticated && (
-                   <button
-                     type="button"
-                     className="text-blue-800"
-                     onClick={login}
-                   >
-                     Login
-                   </button>
+                   <Link to="/login" >Login</Link>
                  )}
 
                  {!!keycloak.authenticated && (

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom';
 import {useForm} from 'react-hook-form'
+import { useDispatch } from 'react-redux';
 import { login } from '../auth';
 import {useNavigate} from 'react-router-dom'
 const LoginPage = () => {
@@ -8,7 +9,7 @@ const LoginPage = () => {
     const {register, handleSubmit, watch, reset, formState:{errors}} = useForm()
     const navigate = useNavigate()
 
-
+    const dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -36,16 +37,21 @@ const LoginPage = () => {
         
 
         */
-        fetch('/auth/login', requestOptions).then(res => res.json())
+        fetch('/auth/user/loginkeycloak', requestOptions).then(res => res.json())
              .then(data => {
                 //  console.log(data.access_token);
                 //  login(data.access_token);
-                 console.log('data user id is --->', data.user_id);
+                 console.log('data user id is --->', data.id);
                 //  let userid = JSON.stringify(data.user_id);
-                  localStorage.setItem("id", data.user_id);
+                  localStorage.setItem("access_token", data.access_token);
+                  localStorage.setItem("id", data.id);
                   localStorage.setItem("username", data.username)
-                  window.location.reload();
-                  navigate('/');
+                  dispatch({
+                    type:'Logged',
+                    payload: true,
+                });
+                //   window.location.reload();
+                //   navigate('/');
              }).catch(err => console.log(err))
 
         reset()
