@@ -2,6 +2,8 @@ from flask_restx import Api,Resource,Namespace, fields
 from flask import request,jsonify,make_response
 from models import User
 import random
+import time
+import schedule
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
@@ -13,11 +15,9 @@ keycloak_openid = KeycloakOpenID(server_url="http://localhost:8080/auth/",
                     realm_name="keycloak-react-auth"
                     )
 
-keycloak_admin = KeycloakAdmin(server_url="http://localhost:8080/auth/",
-                              realm_name="keycloak-react-auth",
-                               username='cli-admin',
-                               password='getlucky15'
-                    )
+
+
+
 
                 #keycloak_admin.users_count()
                 #admin user above must be created within the realm, given admin permissions in credentials/permissions tab, then restart the server
@@ -139,6 +139,11 @@ class UserIDResource(Resource):
 @auth_ns.route('/user/registerkeycloak')
 class UserKeycloak(Resource):
     def post(self):
+        keycloak_admin = KeycloakAdmin(server_url="http://localhost:8080/auth/",
+                    realm_name="keycloak-react-auth",
+                    username="cli-admin",
+                    password="getlucky15"
+                    )
         data = request.get_json()
         email = data.get('email')
         username = data.get('username')
@@ -150,7 +155,6 @@ class UserKeycloak(Resource):
 
         new_user = keycloak_admin.create_user({"email": email,
                     "username": username,
-                    "enabled": True,
                     "firstName": firstName,
                     "lastName": lastName,
                     "credentials": [{"value": "secret","type": password,}]})
@@ -167,13 +171,16 @@ class UserLoginKeycloak(Resource):
         # username2 = keycloak_openid.userinfo.name(token['access_token'])
         print('userinfo ---------------->', userinfo.get('preferred_username'))
         print('type ---------------->', type(userinfo))
-        #print('userinfo ---------------->', userinfo)
-
+        #print('userinfo ---------------->', userinfo))
+        #lookup docs for keycloak-python flask package
         # print('get userinfo values', userinfo['username'])
 
 
 
         # print(token)
+
+
+
 
 
 

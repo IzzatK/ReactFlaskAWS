@@ -54,7 +54,7 @@ const LoggedOutLinks = () => {
         </ul>
         <ul className="navbar-nav">
         <li className="nav-item"> 
-            <Link className="nav-link" to="/registerpostgre">Sign Up</Link>
+            <Link className="nav-link" to="/signup">Sign Up</Link>
         </li>
       
 

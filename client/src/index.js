@@ -25,6 +25,8 @@ import {configureStore} from '@reduxjs/toolkit'
 import rootReducer from './helpers/indexRedux';
 import { userReducer } from './helpers/userReducer';
 import RegisterPage from './components/RegisterPage';
+import RegisterKeycloakUser from './components/RegisterKeycloakUser';
+import Notifications from 'react-notify-toast';
 
 const keycloakProviderInitConfig = {
    onLoad: 'check-sso',
@@ -57,13 +59,15 @@ const App = () => {
     return (
 <KeycloakProvider initOptions={{ onLoad: 'login-required' }} onEvent={eventLogger} onTokens={tokenLogger}
  keycloak={keycloak}>
+   <Notifications />
+
    <Provider store={store}>
       <BrowserRouter>
                   <NavBar/>
                <Routes>
                   <Route path="/" element={<HomePage/>} />
                
-                  <Route path="/signup" element={<SignUpPage/>} />
+                  <Route path="/signup" element={<RegisterKeycloakUser/>} />
                   
                   <Route path="/login" element={<LoginPage/>} />
                   
