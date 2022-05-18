@@ -173,6 +173,7 @@ class UserLoginKeycloak(Resource):
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')
+        
         token = keycloak_openid.token(username, password)
         userinfo = keycloak_openid.userinfo(token['access_token'])
         #userinfo is of type dict as can be seen in print statement below
