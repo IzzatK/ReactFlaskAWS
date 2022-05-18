@@ -158,6 +158,13 @@ class UserKeycloak(Resource):
                     "firstName": firstName,
                     "lastName": lastName,
                     "credentials": [{"value": "secret","type": password,}]})
+        # token = keycloak_openid.token(username, password)
+        # userinfo = keycloak_openid.userinfo(token['access_token'])
+        # userid = userinfo.get('sub')
+
+        #create PostgreSQL User here
+        
+
 
 
 @auth_ns.route('/user/loginkeycloak')
@@ -168,10 +175,26 @@ class UserLoginKeycloak(Resource):
         password = data.get('password')
         token = keycloak_openid.token(username, password)
         userinfo = keycloak_openid.userinfo(token['access_token'])
+        #userinfo is of type dict as can be seen in print statement below
         # username2 = keycloak_openid.userinfo.name(token['access_token'])
         print('userinfo ---------------->', userinfo.get('preferred_username'))
-        print('type ---------------->', type(userinfo))
+        userid = userinfo.get('sub')
+        # print('type ---------------->', type(userinfo))
         # print('userinfo ---------------->', userinfo)
+        # userinpostgre = User.query.filter_by(username=username).first_or_404()
+        # print(userinpostgre)
+
+        # if userinpostgre: 
+        #     print('hello')
+        # else: 
+        #     new_user=User(
+        #     id=userid,
+        #     username=data.get('username'),
+        #     email=data.get('email'),
+        # )
+        
+        # new_user.save()
+        #new_user,201
         return make_response(jsonify({"access_token":token['access_token'],
                                       "refresh_token":token['refresh_token'],
                                        "username": userinfo.get('preferred_username'),
