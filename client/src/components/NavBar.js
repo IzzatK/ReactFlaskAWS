@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import {useAuth} from '../auth'
 import '../styles/main.css'
+import { useSelector } from 'react-redux'
 //conditional render the Sign Up header if user.id is saved in localStorage (AKA user is logged in)
 
 // const logout = () => {
@@ -15,14 +16,21 @@ const lsUsername = localStorage.getItem("username")
 
 
 
-
 const LoggedInLinks = () => {
+    const logout = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
+    
     return(
         <>
         <ul className="nav navbar-nav">
             <li className="nav-item active">
                 <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                 </li>
+            <li className='nav navbar-nav'>
+                <button  onClick={logout}>Logout</button>
+            </li>
             
                 
          </ul>
@@ -52,6 +60,7 @@ const LoggedOutLinks = () => {
             <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
         </li>
         </ul>
+        <Link to="/login" >Login</Link>
         <ul className="navbar-nav">
         <li className="nav-item"> 
             <Link className="nav-link" to="/signup">Sign Up</Link>
@@ -70,6 +79,8 @@ const LoggedOutLinks = () => {
 const NavBar = () => {
 
     const {keycloak, initialized} = useKeycloak();
+    const {Logged} = useSelector((state) => ({...state}))
+    const [loggedIn, setLoggedIn] = useState(false);
 
     
     // const login = useCallback(() => {
@@ -91,7 +102,16 @@ const NavBar = () => {
      const [logged, setLogged] =useState(false);
 
      useEffect(() => {
+        console.log('logged value on navbar is ----------->', loggedIn);
 
+        if(localStorage.getItem("id")){
+            console.log("id is present")
+            setLoggedIn(true);
+        }
+        else if (!localStorage.getItem("id")){
+            console.log("missing id in localStorage")
+            setLoggedIn(false)
+        }
      })
 
 
@@ -157,7 +177,7 @@ const NavBar = () => {
         } */}
         {/* {!!keycloak.authenticated ? (setLogged(true)) : ('none')} */}
 
-                <div className="hover:text-gray-200">
+                {/* <div className="hover:text-gray-200">
                  {!keycloak.authenticated && (
                    <Link to="/login" >Login</Link>
                  )}
@@ -168,15 +188,15 @@ const NavBar = () => {
                      className="text-blue-800"
                      onClick={logout}
                    >
-                       {/* {keycloak.} */}
+                       {/* {keycloak.} 
                      Logout ({keycloak.tokenParsed.preferred_username})
                    </Link>
                  )}
-               </div>
+               </div> */}
                 
                 <div className="collapse navbar-collapse" id="navbarNav">
                     
-                    { !!keycloak.authenticated ? <LoggedInLinks/> : <LoggedOutLinks />} 
+                    { loggedIn ? <LoggedInLinks/> : <LoggedOutLinks />} 
                    
                     {/* <li className="nav-item">
                         <a className="nav-link disabled" href="#">Disabled</a>

@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom';
 import {useForm} from 'react-hook-form'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../auth';
 import {useNavigate} from 'react-router-dom'
 const LoginPage = () => {
 
+
     const {register, handleSubmit, watch, reset, formState:{errors}} = useForm()
     const navigate = useNavigate()
+    const {Logged} = useSelector((state) => ({...state}))
+
 
     const dispatch = useDispatch();
     const [username, setUsername] = useState("");
@@ -44,14 +47,16 @@ const LoginPage = () => {
                  console.log('data user id is --->', data.id);
                 //  let userid = JSON.stringify(data.user_id);
                   localStorage.setItem("access_token", data.access_token);
+                  localStorage.setItem("refresh_token", data.refresh_token)
                   localStorage.setItem("id", data.id);
                   localStorage.setItem("username", data.username)
                   dispatch({
                     type:'Logged',
                     payload: true,
                 });
-                //   window.location.reload();
-                //   navigate('/');
+                console.log('Logged value is --------->', Logged)
+                  window.location.reload();
+                  navigate('/');
              }).catch(err => console.log(err))
 
         reset()
