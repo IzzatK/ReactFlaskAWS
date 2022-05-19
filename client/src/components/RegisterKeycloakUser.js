@@ -45,10 +45,10 @@ const RegisterKeycloakUser = () => {
         }
 
          fetch('/auth/user/registerkeycloak', requestOptions)
-          .then(res => res.json())
+          .then(res => {res.json()})
           .then(data => {
             console.log(data);
-            notify.show('Toasty!');
+            notify.show('Toasty!', "success", 10000);
           })
           .catch(err=>console.log(err))
 
@@ -103,48 +103,48 @@ const RegisterKeycloakUser = () => {
                  <form onSubmit={handleSubmit(submitForm)}>
                      <div className="form-group mb-3">
                          <label>Username</label>
-                         <input {...register("username", { maxLength:25})} 
+                         <input {...register("username", { maxLength:25, required: true})} 
                                   className="form-control"  /> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handleUsername} name="username" type="text" className="form-control" placeholder="Enter Username" */}
                        
-                     {errors.username && (<><span className="text-danger">Username is required</span> <br/></>) }
+                     {errors.username?.type==="required" && (<><span className="text-warning">Username is required {notify.show("Please enter your Username!", "warning", 8570)}</span> <br/></>) }
                      
-                     {errors.username?.type==="maxLength" && <span className='text-danger'>Your Username is too long</span>}
+                     {errors.username?.type==="maxLength" && <span className='text-warning'>Your Username is too long {notify.show("Username is too long!", "warning", 9570)}</span>}
                      </div>
                      <div className="form-group mb-3">
                          <label>firstname</label>
-                         <input {...register("firstname", { maxLength:25})} 
+                         <input {...register("firstname", { maxLength:25, required: true})} 
                                   className="form-control"  /> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handlefirstname} name="firstname" type="text" className="form-control" placeholder="Enter firstname" */}
                        
-                     {errors.firstname && (<><span className="text-danger">firstname is required</span> <br/></>) }
+                     {errors.firstname?.type==="required" && (<><span className="text-warning">firstname is required {notify.show("Please enter your First name", "warning", 8570)}</span> <br/></>) }
                      
-                     {errors.firstname?.type==="maxLength" && <span className='text-danger'>Your firstname is too long</span>}
+                     {errors.firstname?.type==="maxLength" && <span className='text-warning'>Your firstname is too long {notify.show("First name is too long!", "warning", 9570)} </span>}
                      </div>
                      <div className="form-group mb-3">
                          <label>lastname</label>
-                         <input {...register("lastname", { maxLength:25})} 
+                         <input {...register("lastname", { maxLength:25, required:true })} 
                                   className="form-control"  /> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handlelastname} name="lastname" type="text" className="form-control" placeholder="Enter lastname" */}
                        
-                     {errors.lastname && (<><span className="text-danger">lastname is required</span> <br/></>) }
+                     {errors.lastname?.type==="required" && (<><span className="text-warning">lastname is required {notify.show("Please enter your Last name", "warning", 8570)}</span> <br/></>) }
                      
-                     {errors.lastname?.type==="maxLength" && <span className='text-danger'>Your lastname is too long</span>}
+                     {errors.lastname?.type==="maxLength" && <span className='text-warning'>Your lastname is too long {notify.show("Last name is too long!", "warning", 9570)}</span>}
                      </div>
                      <div className="form-group mb-3">
                          <label>email</label>
-                         <input {...register("email", { maxLength:25})} 
+                         <input {...register("email", { maxLength:25, required: true})} 
                                   className="form-control" /> {/* onChange={handleEmail} name="email" type="email" className="form-control" placeholder="Enter Email"- -onChange={handleemail} name="email" type="text" className="form-control" placeholder="Enter email" */}
                        
-                     {errors.email && (<><span className="text-danger">email is required</span> <br/></>) }
+                     {errors.email?.type==="required" && (<><span className="text-warning">email is required {notify.show("Please enter your email", "warning", 8570)}</span> <br/></>) }
                      
-                     {errors.email?.type==="maxLength" && <span className='text-danger'>Your email is too long</span>}
+                     {errors.email?.type==="maxLength" && <span className='text-warning'>Your email is too long {notify.show("Email is too long!", "warning", 9570)}</span>}
                      </div>
                      <div className="form-group mb-3">
                          <label>password</label>
-                         <input {...register("password", { maxLength:25})} 
+                         <input {...register("password", { maxLength:25, required: true})} 
                                   className="form-control" /> {/* onChange={handlepassword} name="password" type="password" className="form-control" placeholder="Enter password"- -onChange={handlepassword} name="password" type="text" className="form-control" placeholder="Enter password" */}
                        
-                     {errors.password && (<><span className="text-danger">password is required</span> <br/></>) }
+                     {errors.password?.type==="required" && (<><span className="text-warning">password is required {notify.show("Please enter your password", "warning", 8570)}</span> <br/></>) }
                      
-                     {errors.password?.type==="maxLength" && <span className='text-danger'>Your password is too long</span>}
+                     {errors.password?.type==="maxLength" && <span className='text-warning'>Your password is too long {notify.show("Password is too long!", "warning", 9570)}</span>}
                      </div>
                      <button type="submit" className="primary">Sign Up</button> {/* Buttons submission in React will refresh the page*/}
                      <div className="form-group mt-2"><small>Already have an account? <Link to="/login">Click here to Log in</Link></small></div>

@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../auth';
 import {useNavigate} from 'react-router-dom'
+import { notify } from 'react-notify-toast';
 const LoginPage = () => {
 
 
@@ -15,6 +16,7 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [status, setStatus] = useState();
 
     const loginUser = (data) => {
         // console.log("Form submitted");
@@ -39,8 +41,11 @@ const LoginPage = () => {
 
         
 
-        */
-        fetch('/auth/user/loginkeycloak', requestOptions).then(res => res.json())
+        */ /* {setStatus(res.status); res.json()} */ /* working res statement .then(res => res.json()) */
+        fetch('/auth/user/loginkeycloak', requestOptions).then(res => {
+                   if(!res.ok) {throw new Error(res.status)}
+                   else { return res.json()}
+        })
              .then(data => {
                 //  console.log(data.access_token);
                 //  login(data.access_token);
@@ -57,7 +62,7 @@ const LoginPage = () => {
                 console.log('Logged value is --------->', Logged)
                   window.location.reload();
                   navigate('/');
-             }).catch(err => console.log(err))
+             }).catch(err => console.log('err is --------->', err))
 
         reset()
     }
@@ -78,15 +83,15 @@ const LoginPage = () => {
                          <input  className="form-control"
                                 {...register('username', {required:true, maxLength:25})} placeholder="Enter Username"/>
                      </div>
-                     {errors.username && (<><small>Error username is required</small> <br/> </>)}
-                     {errors.username?.type === "maxLength" && (<><small>Error username too long</small> <br/> </>)}
+                     {errors.username?.type==="required" && (<><small className='text-warning'>Error username is required {notify.show("Please enter your Username", "warning", 8200)}</small> <br/> </>)}
+                     {errors.username?.type === "maxLength" && (<><small className='text-warning'>Error username too long {notify.show("Username is too long!", "warning", 8200)}</small> <br/> </>)}
                      <div className="form-group mb-3">
                          <label className="form-label">Password</label>
                          <input  className="form-control"
                                 {...register('password', {required:true, minLength:8})} placeholder="Enter Password"/>
                      </div>
-                     {errors.password && (<><small>Error password is required</small> <br/> </>)}
-                     {errors.password?.type === "minLength" && (<><small>Error password is not strong enough</small> <br/> </>)}
+                     {errors.password?.type==="required" && (<><small className='text-warning'>Error password is required {notify.show("Please enter your password", "warning", 8200)}</small> <br/> </>)}
+                     {errors.password?.type === "minLength" && (<><small className='text-warning'>Error password is not strong enough {notify.show("Password is too long!", "warning", 8200)}</small> <br/> </>)}
 
                      <button type="submit" onClick={handleSubmit(loginUser)} className="primary">Log in</button> {/* Buttons submission in React will refresh the page*/}
                      <div className="form-group mt-2"><small>Don't have an account? <Link to="/signup">Click here to register</Link></small></div>
