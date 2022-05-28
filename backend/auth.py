@@ -144,6 +144,17 @@ class UserKeycloak(Resource):
                     username="cli-admin",
                     password="getlucky15"
                     )
+
+        users = keycloak_admin.get_users({})
+        usersarray = []
+        x = 0
+        #users is an array, but user itself is of type dict; 
+        #see examples above for working with dict type
+        for user in users:
+            usersarray.insert(x, user.get('username'))
+            x+=1
+            print('username is --------->', user.get('username'))
+        
         data = request.get_json()
         email = data.get('email')
         username = data.get('username')
