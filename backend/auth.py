@@ -148,12 +148,10 @@ class UserKeycloak(Resource):
         users = keycloak_admin.get_users({})
         usersarray = []
         x = 0
+        UserExists = False
         #users is an array, but user itself is of type dict; 
         #see examples above for working with dict type
-        for user in users:
-            usersarray.insert(x, user.get('username'))
-            x+=1
-            print('username is --------->', user.get('username'))
+       
         
         data = request.get_json()
         email = data.get('email')
@@ -162,13 +160,25 @@ class UserKeycloak(Resource):
         lastName = data.get('lastname')
         password = data.get('password')
 
-
-
-        new_user = keycloak_admin.create_user({"email": email,
+        for user in users:
+            usersarray.insert(x, user.get('username'))
+            
+            print('username is --------->', usersarray[x])
+            if usersarray[x] == username:
+                response = make_response(jsonify({"message": "err 409 User already exists"}), 409)
+                return response
+            else:
+                new_user = keycloak_admin.create_user({"email": email,
                     "username": username,
                     "firstName": firstName,
                     "lastName": lastName,
                     "credentials": [{"value": "secret","type": password,}]})
+            x+=1
+
+
+
+
+        
         # token = keycloak_openid.token(username, password)
         # userinfo = keycloak_openid.userinfo(token['access_token'])
         # userid = userinfo.get('sub')
