@@ -17,7 +17,7 @@ recipe_model=recipe_ns.model(
         "id":fields.Integer(),
         "title": fields.String(),
         "description":fields.String(),
-        "user_id": fields.Integer(),
+        # "user_id": fields.Integer(30),
         "username": fields.String(),
         # "recipe_file": fields.String()
     }
@@ -63,7 +63,7 @@ class RecipeResource(Resource):
             id=count,
             title=data.get('title'),
             description=data.get('description'),
-            user_id=useridnob,
+            # user_id=useridnob,
              username=data.get('username')
         )
 

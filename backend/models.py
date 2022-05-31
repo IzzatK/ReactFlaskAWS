@@ -14,11 +14,11 @@ class Recipe(db.Model):
     id = db.Column(db.Integer(), primary_key=True) #()empty params not included in blogapp Models
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.Text(), nullable=False)
-    user_id=db.Column(db.BigInteger(), db.ForeignKey('user.id'), nullable=False)
-    username=db.Column(db.String(), nullable=False)
+    # user_id=db.Column(db.Integer(30), db.ForeignKey('user.id'), nullable=False)
+    username=db.Column(db.String(), db.ForeignKey('user.username'), nullable=False)
     # recipe_file=db.Column(db.String(), nullable=True, default='default.pdf')
     # comments=db.Column(db.String(), db.ForeignKey('user.id'), nullable=False)
-    
+    #db.BIGINT()
 
     def __repr__(self):
         return f"<Recipe {self.title}>"

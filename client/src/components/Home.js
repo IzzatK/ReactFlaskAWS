@@ -130,15 +130,15 @@ const HomePage = () => { /* copy this format to create recipes page user account
                   }).catch(err => console.log(err))
 
 
-                  fetch(`/auth/userid/${keycloak.tokenParsed.preferred_username}`).then(res => res.json()).then(data => {
-                      setUserID(data);
-                      console.log('data is -------->', data);
-                      localStorage.setItem("id", data)
-                  }).catch(err => console.log(err))
+                //   fetch(`/auth/userid/${keycloak.tokenParsed.preferred_username}`).then(res => res.json()).then(data => {
+                //       setUserID(data);
+                //       console.log('data is -------->', data);
+                //     //   localStorage.setItem("id", data)
+                //   }).catch(err => console.log(err))
 
-        console.log('user ID is ----------->', userID)
+        // console.log('user ID is ----------->', userID)
 
-        localStorage.setItem("username", keycloak.tokenParsed.preferred_username)
+        // localStorage.setItem("username", keycloak.tokenParsed.preferred_username)
         // localStorage.setItem("id", userID)
 
                 //   { register('title', {value: title} )}
@@ -148,7 +148,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
          return (
              <div>
                  
-                 <h1 id="welcomeheader">Welcome user {keycloak.tokenParsed.email}</h1>
+                 <h1 id="welcomeheader">Welcome user </h1>
              
                  {/* <button onClick={console.log(recipes)}>recipes here</button> */}
 
@@ -174,10 +174,10 @@ const HomePage = () => { /* copy this format to create recipes page user account
 
      useEffect(() => {
          var id = localStorage.getItem("id")
-        if(typeof id  !== 'undefined' && id !== null)
+        if(localStorage.getItem("id"))
         {
             setLogged(true)
-            console.log('new logged value ------->', logged)
+            console.log('new logged value ------->', logged, keycloak.tokenParsed)
         }
         else 
         {
@@ -190,7 +190,7 @@ const HomePage = () => { /* copy this format to create recipes page user account
     return (
         <div className="home container">
             <h1 id="heading" >Welcome to Recipes Page</h1>
-             {keycloak.authenticated ?  <LoggedInHome /> : <Link to="/signup" className="btn btn-submit btn-secondary btn-lg">Signup</Link> /* insert username here*/}
+             {logged ?  <LoggedInHome /> : <Link to="/signup" className="btn btn-submit btn-secondary btn-lg">Signup</Link> /* insert username here*/}
         </div>
     )
 }
