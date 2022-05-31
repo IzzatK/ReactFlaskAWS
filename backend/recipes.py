@@ -4,6 +4,7 @@ from flask import request,jsonify,make_response, redirect
 from flask_jwt_extended import jwt_required
 from werkzeug.utils import secure_filename
 from models import Recipe, User
+import random
 
 
 
@@ -22,6 +23,12 @@ recipe_model=recipe_ns.model(
     }
 )
 
+def remove_chars(data, chars):
+    new_data = data
+    for ch in chars:
+        new_data = new_data.replace(ch, '')
+    return new_data
+
 @recipe_ns.route('/recipes')
 class RecipeResource(Resource):
 
@@ -35,14 +42,28 @@ class RecipeResource(Resource):
     @recipe_ns.expect(recipe_model)
     def post(self):
         """Create a recipe"""
-
+        count = random.randint(1, 99999)
+        print(count)
         data=request.get_json()
+        useridParseToInt = data.get('user_id')
+        # useridfloat = float(useridParseToInt)
+        # useridint = int(useridfloat)
+        useridnodash = useridParseToInt.replace("-", "")
+        useridnoe = useridnodash.replace("e", "")
+        useridnoa = useridnoe.replace("a", "")
+        useridnof = useridnoa.replace("f", "")
+        useridnoc = useridnof.replace("c", "")
+        useridnob = useridnoc.replace("b", "")
+        # remove_chars(useridParseToInt, '-abcdefghijklmnopqrstuvwxyz')
+        # useridnoe = useridnodash.replace('e', '')
 
+        # useridfloat = float(useridnodash)
+        # useridint = int(useridfloat)
         new_recipe=Recipe(
-           
+            id=count,
             title=data.get('title'),
             description=data.get('description'),
-             user_id=data.get('user_id'),
+            user_id=useridnob,
              username=data.get('username')
         )
 

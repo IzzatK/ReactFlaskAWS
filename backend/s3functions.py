@@ -16,3 +16,8 @@ def show_image(bucket):
     except Exception as e:
         pass
     return public_urls
+
+def connect_sqs(service_name):
+    sqs_client = boto3.client('sqs')
+    return sqs_client
+

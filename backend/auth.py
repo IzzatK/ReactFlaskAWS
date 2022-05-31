@@ -64,7 +64,7 @@ class SignUp(Resource):
         if db_user is not None:
             return jsonify({"message": f"user w/ username {username} already exists"})
         
-
+        #id should be grabbed from localStorage and placed here inside Register function
         new_user=User(
             id=count,
             username=data.get('username'),
