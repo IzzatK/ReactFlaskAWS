@@ -1,5 +1,5 @@
 import boto3
-from flask import response
+from flask import Response
 
 def upload_file(file_name, bucket):
     object_name = file_name
@@ -31,16 +31,22 @@ def connect_sqs(service_name):
 
 # print(response['QueueUrl'])
 
-def send_sqs_message(message):
+def send_sqs_message(message, username):
     sqs = boto3.client('sqs')
     queue_url = sqs.get_queue_url(QueueName='MyFlaskQueue')
+    queue_urltwo = queue_url['QueueUrl']
+    
     response = sqs.send_message(
-    QueueUrl=queue_url,
+    QueueUrl=queue_urltwo,
     DelaySeconds=10,
     MessageAttributes={
         'Title': {
             'DataType': 'String',
             'StringValue': 'The Whistler'
+        },
+        'username': {
+            'DataType': 'String',
+            'StringValue': username
         },
         'Author': {
             'DataType': 'String',
@@ -56,5 +62,6 @@ def send_sqs_message(message):
     )
 )
 
-print(response['MessageId'])
+    print(message, username)
+    print('response is ---------->', response)
 
