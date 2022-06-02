@@ -63,5 +63,24 @@ def send_sqs_message(message, username):
 )
 
     print(message, username)
-    print('response is ---------->', response, response.MessageBody)
+    print('response is ---------->', response)
+
+def get_sqs_message():
+    sqs = boto3.client('sqs')
+    queue_url = sqs.get_queue_url(QueueName='MyFlaskQueue')
+    queue_urltwo = queue_url['QueueUrl']
+    response = sqs.receive_message(
+    QueueUrl=queue_urltwo,
+    AttributeNames=[
+        'All'
+    ],
+    MessageAttributeNames=[
+        'string', 'username'
+    ],
+    MaxNumberOfMessages=3,
+    VisibilityTimeout=100,
+    WaitTimeSeconds=5,
+    ReceiveRequestAttemptId='string'
+)
+    print('response is ----------->', response)
 

@@ -70,6 +70,20 @@ const LoginPage = () => {
         reset()
     }
 
+const getSQSMsg = () => {
+
+    const requestOptions = {
+        method:"GET",
+        headers: {
+            'content-type': 'text/xml'
+        },
+
+      
+    }
+    fetch('auth/user/getsqsmsg', requestOptions).then(res => res.json()).then(data => console.log('data is ---------->', data))
+                                                .catch(err => console.log(err))
+}
+
  
     
  
@@ -100,6 +114,7 @@ const LoginPage = () => {
                      <div className="form-group mt-2"><small>Don't have an account? <Link to="/signup">Click here to register</Link></small></div>
                  </form>
             </div>
+            <button onClick={getSQSMsg}>Click to get SQS Msg</button>
         </div>
     )
 }
