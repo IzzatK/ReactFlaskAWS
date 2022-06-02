@@ -42,7 +42,7 @@ def send_sqs_message(message, username):
     MessageAttributes={
         'Title': {
             'DataType': 'String',
-            'StringValue': 'The Whistler'
+            'StringValue': 'Exception Handler SQS message'
         },
         'username': {
             'DataType': 'String',
@@ -63,5 +63,5 @@ def send_sqs_message(message, username):
 )
 
     print(message, username)
-    print('response is ---------->', response)
+    print('response is ---------->', response, response.MessageBody)
 
