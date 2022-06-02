@@ -77,10 +77,13 @@ def get_sqs_message():
     MessageAttributeNames=[
         'string', 'username'
     ],
-    MaxNumberOfMessages=3,
+    MaxNumberOfMessages=10,
     VisibilityTimeout=100,
     WaitTimeSeconds=5,
     ReceiveRequestAttemptId='string'
 )
+    print('response is ----------->', response.Messages[0].MessageAttributes)
     print('response is ----------->', response)
+
+    return()
 
