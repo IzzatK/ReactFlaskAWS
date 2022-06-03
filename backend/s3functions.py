@@ -68,6 +68,7 @@ def send_sqs_message(message, username):
 def get_sqs_message():
     sqs = boto3.client('sqs')
     queue_url = sqs.get_queue_url(QueueName='MyFlaskQueue')
+    messagesarr = []
     queue_urltwo = queue_url['QueueUrl']
     i = 0
     response = sqs.receive_message(
@@ -78,6 +79,8 @@ def get_sqs_message():
     MessageAttributeNames=[
         'string', 'username'
     ],
+    WaitTimeSeconds=20,
+    VisibilityTimeout=0,
     MaxNumberOfMessages=10,
     # VisibilityTimeout=100,
     # WaitTimeSeconds=5,
@@ -89,6 +92,7 @@ def get_sqs_message():
         messagetwo = response['Messages'][i]
         print('Messages ith index ----------->',i,  messageshere)
         i+=1
+    print('10th message is -------->', response['Messages'][1])
     # print('response msg attributes is ----------->', response.Messages[i].MessageAttributes)
     # print('response message is -------------->', message)
 
@@ -103,5 +107,36 @@ def get_sqs_message():
 
     # print('response is -----------> messages try block here', messages)
 
-    return()
+    
+
+def get_all_sqs_msgs():
+    sqs_client = boto3.client('sqs')
+    queue_url = sqs_client.get_queue_url(QueueName='MyFlaskQueue')
+    messagesarr = []
+    queue_urltwo = queue_url['QueueUrl']
+    while True:
+        resp = sqs_client.receive_message(
+            QueueUrl=queue_urltwo,
+            AttributeNames=['All'],
+            MaxNumberOfMessages=10
+        )
+
+        try:
+            yield from resp['Messages']
+        except KeyError:
+            return
+
+        entries = [
+            {'Id': msg['MessageId'], 'ReceiptHandle': msg['ReceiptHandle']}
+            for msg in resp['Messages']
+        ]
+
+        resp = sqs_client.delete_message_batch(
+            QueueUrl=queue_urltwo, Entries=entries
+        )
+
+        if len(resp['Successful']) != len(entries):
+            raise RuntimeError(
+                f"Failed to delete messages: entries={entries!r} resp={resp!r}"
+            )
 

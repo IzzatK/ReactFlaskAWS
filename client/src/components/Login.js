@@ -82,6 +82,23 @@ const getSQSMsg = () => {
     }
     fetch('auth/user/getsqsmsg', requestOptions).then(res => res.json()).then(data => console.log('data is ---------->', data))
                                                 .catch(err => console.log(err))
+    
+                                       
+}
+
+const getAllSQSMsgs = () => {
+
+    const requestOptions = {
+        method:"GET",
+        headers: {
+            'content-type': 'text/xml'
+        },
+
+      
+    }
+
+    fetch('auth/user/getallsqsmsgs', requestOptions).then(res => res.json()).then(data => console.log('data is ---------->', data))
+                                                .catch(err => console.log(err))                                             
 }
 
  
@@ -115,6 +132,8 @@ const getSQSMsg = () => {
                  </form>
             </div>
             <button onClick={getSQSMsg}>Click to get SQS Msg</button>
+            <button onClick={getAllSQSMsgs}>Click to get All SQS Msgs</button>
+
         </div>
     )
 }

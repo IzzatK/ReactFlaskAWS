@@ -8,7 +8,7 @@ import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
 from keycloak import KeycloakOpenID, KeycloakAdmin
-from s3functions import send_sqs_message, get_sqs_message
+from s3functions import send_sqs_message, get_sqs_message, get_all_sqs_msgs
 
 
 keycloak_openid = KeycloakOpenID(server_url="http://localhost:8080/auth/",
@@ -194,6 +194,12 @@ class UserKeycloak(Resource):
 class UserGetSQSMsg(Resource):
     def get(self):
         data = get_sqs_message()
+        print('sqs msg is ------------->', data)
+
+@auth_ns.route('/user/getallsqsmsgs')
+class UserGetAllSQSMsgs(Resource):
+    def get(self):
+        data = get_all_sqs_msgs()
         print('sqs msg is ------------->', data)
 
 
