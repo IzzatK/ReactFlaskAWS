@@ -69,6 +69,7 @@ def get_sqs_message():
     sqs = boto3.client('sqs')
     queue_url = sqs.get_queue_url(QueueName='MyFlaskQueue')
     queue_urltwo = queue_url['QueueUrl']
+    i = 0
     response = sqs.receive_message(
     QueueUrl=queue_urltwo,
     AttributeNames=[
@@ -78,12 +79,29 @@ def get_sqs_message():
         'string', 'username'
     ],
     MaxNumberOfMessages=10,
-    VisibilityTimeout=100,
-    WaitTimeSeconds=5,
-    ReceiveRequestAttemptId='string'
+    # VisibilityTimeout=100,
+    # WaitTimeSeconds=5,
+    # ReceiveRequestAttemptId='string'
 )
-    print('response is ----------->', response.Messages[0].MessageAttributes)
-    print('response is ----------->', response)
+
+    message = response['Messages'][0]
+    for messageshere in response['Messages']:
+        messagetwo = response['Messages'][i]
+        print('Messages ith index ----------->',i,  messageshere)
+        i+=1
+    # print('response msg attributes is ----------->', response.Messages[i].MessageAttributes)
+    # print('response message is -------------->', message)
+
+    # try:
+    #      messages = response['Messages']
+    # except KeyError:
+    #      print('No messages on the queue!')
+    #      messages = []
+
+    
+    # print('response ----------->', response)
+
+    # print('response is -----------> messages try block here', messages)
 
     return()
 
