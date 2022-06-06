@@ -91,8 +91,11 @@ def get_sqs_message():
     for messageshere in response['Messages']:
         messagetwo = response['Messages'][i]
         print('Messages ith index ----------->',i,  messageshere)
+        #probably should just store these msgs into an array then destrucutre the attributes w/ FrontEnd React logic
+        # messagesarr[i] = messageshere.Attributes.MessageAttributes
+        print('Messages attribute is ----------->',  messageshere.get('MessageAttributes'))
         i+=1
-    print('10th message is -------->', response['Messages'][1])
+    # print('10th message is -------->', response['Messages'][1])
     # print('response msg attributes is ----------->', response.Messages[i].MessageAttributes)
     # print('response message is -------------->', message)
 
