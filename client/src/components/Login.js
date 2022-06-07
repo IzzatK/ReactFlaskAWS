@@ -42,18 +42,20 @@ const LoginPage = () => {
         
 
         */ /* {setStatus(res.status); res.json()} */ /* working res statement .then(res => res.json()) */
-        fetch('/auth/user/loginkeycloak', requestOptions).then(res => 
+        fetch('/auth/user/loginkeycloak', requestOptions)
+             .then(res => 
               {
                    if(!res.ok) throw new Error(res.status)
                     
                    else return res.json();
                 
                })
-             .then(data => {
+             .then(data => 
+              {
+                //  let userid = JSON.stringify(data.user_id);
                 //  console.log(data.access_token);
                 //  login(data.access_token);
                   console.log('data user id is --->', data.id);
-                //  let userid = JSON.stringify(data.user_id);
                   localStorage.setItem("access_token", data.access_token); localStorage.setItem("refresh_token", data.refresh_token); localStorage.setItem("id", data.id); localStorage.setItem("username", data.username);
                   dispatch({
                     type:'Logged',
@@ -65,6 +67,7 @@ const LoginPage = () => {
            }).catch(err => 
              {
                   console.log('err is --------->', err)
+                  notify.show("err invalid credentials", "error", 10000);
              })
 
         reset()

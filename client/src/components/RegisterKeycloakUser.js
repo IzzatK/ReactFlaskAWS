@@ -19,6 +19,10 @@ const RegisterKeycloakUser = () => {
     //     console.log('username value is ---------->', usernameValue);
     // })
 
+    useEffect(() => {
+
+    }, [])
+
     const submitForm = (data) => {
         
         console.log('email is ------->', data.email, data.firstname, data.lastname, data.password)
@@ -44,13 +48,20 @@ const RegisterKeycloakUser = () => {
             
         }
 
-         fetch('/auth/user/registerkeycloak', requestOptions)
-          .then(res => {res.json()})
+     fetch('/auth/user/registerkeycloak', requestOptions)
+          .then(res => {
+            if(!res.ok) throw new Error(res.status)
+                    
+            else return res.json();
+          })
           .then(data => {
             console.log(data);
-            notify.show('Toasty!', "success", 10000);
+            notify.show('Toasty! Successfull registration', "success", 10000);
           })
-          .catch(err=>console.log(err))
+          .catch(err=> {
+            console.log(err);
+            notify.show(`${err}: User already exists `, "error", 10000);
+            })
 
     
 

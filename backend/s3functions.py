@@ -79,7 +79,7 @@ def get_sqs_message():
     MessageAttributeNames=[
         'string', 'username'
     ],
-    WaitTimeSeconds=20,
+    WaitTimeSeconds=0,
     VisibilityTimeout=0,
     MaxNumberOfMessages=10,
     # VisibilityTimeout=100,
@@ -90,14 +90,16 @@ def get_sqs_message():
     message = response['Messages'][0]
     for messageshere in response['Messages']:
         messagetwo = response['Messages'][i]
-        print('Messages ith index ----------->',i,  messageshere)
+        # print('Messages ith index ----------->',i,  messageshere)
         #probably should just store these msgs into an array then destrucutre the attributes w/ FrontEnd React logic
-        # messagesarr[i] = messageshere.Attributes.MessageAttributes
         print('Messages attribute is ----------->',  messageshere.get('MessageAttributes'))
+        # messagesarr[i] = messageshere.get('MessageAttributes')
         i+=1
     # print('10th message is -------->', response['Messages'][1])
     # print('response msg attributes is ----------->', response.Messages[i].MessageAttributes)
     # print('response message is -------------->', message)
+    # messagesarr[i] = messageshere.Attributes.MessageAttributes
+
 
     # try:
     #      messages = response['Messages']

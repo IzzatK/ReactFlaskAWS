@@ -168,6 +168,7 @@ class UserKeycloak(Resource):
             if usersarray[x] == username.lower():
                 response = make_response(jsonify({"message": "err 409 User already exists"}), 409)
                 message = "User already exists, err 409"
+                #must add exception handling for emails too
                 send_sqs_message(message, username)
                 return response
             else:
