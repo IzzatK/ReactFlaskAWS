@@ -79,7 +79,7 @@ const App = () => {
 
                   <Route path="/user/:slug" element={<SingleUserPage/>} />
 
-                  <Route path="/file/display" element={<ProtectedRoute><FileDisplayPage /></ProtectedRoute>} />
+                  <Route path="/file/display" element={<FileDisplayPage />} />
 
                   <Route path={`/singlefile/:slug`} element={<SingleFilePage />} />
 
