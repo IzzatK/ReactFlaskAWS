@@ -68,8 +68,9 @@ class SignUp(Resource):
         #id should be grabbed from localStorage and placed here inside Register function
         new_user=User(
             id=count,
-            username=data.get('username'),
+            username=data.get('username').lower(),
             email=data.get('email'),
+            password=generate_password_hash(data.get('password'))
         )
         
         new_user.save()
@@ -98,7 +99,8 @@ class Login(Resource):
                 "access_token": access_token,
                 "refresh_token": refresh_token,
                 "user_id": db_userid,
-                "username": db_username
+                "username": db_username,
+                "password": password
             })
 
 def default_json(t):
@@ -160,7 +162,7 @@ class UserKeycloak(Resource):
         firstName = data.get('firstname')
         lastName = data.get('lastname')
         password = data.get('password')
-
+        #where users is an array of All users in Keycloak server
         for user in users:
             usersarray.insert(x, user.get('username'))
             
@@ -172,7 +174,8 @@ class UserKeycloak(Resource):
                 send_sqs_message(message, username)
                 return response
             else:
-                new_user = keycloak_admin.create_user({"email": email,
+                new_user = keycloak_admin.create_user({
+                    "email": email,
                     "username": username,
                     "firstName": firstName,
                     "lastName": lastName,
@@ -233,11 +236,13 @@ class UserLoginKeycloak(Resource):
         
         # new_user.save()
         #new_user,201
-        return make_response(jsonify({"access_token":token['access_token'],
+        if token:
+            return make_response(jsonify({"access_token":token['access_token'],
                                       "refresh_token":token['refresh_token'],
                                        "username": userinfo.get('preferred_username'),
                                        "id": userinfo.get('sub')          }),207)
-
+        else:
+            return make_response(jsonify({"user doesnt exist"}), 407)
         
         #lookup docs for keycloak-python flask package
         # print('get userinfo values', userinfo['username'])

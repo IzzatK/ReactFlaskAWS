@@ -17,7 +17,7 @@ recipe_model=recipe_ns.model(
         "id":fields.Integer(),
         "title": fields.String(),
         "description":fields.String(),
-        # "user_id": fields.Integer(30),
+        "user_id": fields.Integer(30),
         "username": fields.String(),
         # "recipe_file": fields.String()
     }
@@ -48,12 +48,12 @@ class RecipeResource(Resource):
         useridParseToInt = data.get('user_id')
         # useridfloat = float(useridParseToInt)
         # useridint = int(useridfloat)
-        useridnodash = useridParseToInt.replace("-", "")
-        useridnoe = useridnodash.replace("e", "")
-        useridnoa = useridnoe.replace("a", "")
-        useridnof = useridnoa.replace("f", "")
-        useridnoc = useridnof.replace("c", "")
-        useridnob = useridnoc.replace("b", "")
+        # useridnodash = useridParseToInt.replace("-", "")
+        # useridnoe = useridnodash.replace("e", "")
+        # useridnoa = useridnoe.replace("a", "")
+        # useridnof = useridnoa.replace("f", "")
+        # useridnoc = useridnof.replace("c", "")
+        # useridnob = useridnoc.replace("b", "")
         # remove_chars(useridParseToInt, '-abcdefghijklmnopqrstuvwxyz')
         # useridnoe = useridnodash.replace('e', '')
 
@@ -63,8 +63,8 @@ class RecipeResource(Resource):
             id=count,
             title=data.get('title'),
             description=data.get('description'),
-            # user_id=useridnob,
-             username=data.get('username')
+            user_id=useridParseToInt,
+            username=data.get('username')
         )
 
         new_recipe.save()

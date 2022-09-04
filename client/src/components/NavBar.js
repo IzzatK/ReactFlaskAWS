@@ -104,12 +104,12 @@ const NavBar = () => {
      useEffect(() => {
         console.log('logged value on navbar is ----------->', loggedIn);
 
-        if(localStorage.getItem("id")){
-            console.log("id is present")
+        if(localStorage.getItem("username")){
+            console.log("username is present")
             setLoggedIn(true);
         }
-        else if (!localStorage.getItem("id")){
-            console.log("missing id in localStorage")
+        else if (!localStorage.getItem("username")){
+            console.log("missing username in localStorage")
             setLoggedIn(false)
         }
      })

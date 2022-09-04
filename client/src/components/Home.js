@@ -177,20 +177,20 @@ const HomePage = () => { /* copy this format to create recipes page user account
         if(localStorage.getItem("id"))
         {
             setLogged(true)
-            console.log('new logged value ------->', logged, keycloak.tokenParsed)
+            // console.log('new logged value ------->', logged, keycloak.tokenParsed)
         }
         else 
         {
             setLogged(false)
         }
-        console.log('logged value ------->', logged)
+        // console.log('logged value ------->', logged)
     }, [])
 
 
     return (
         <div className="home container">
             <h1 id="heading" >Welcome to Recipes Page</h1>
-             {logged ?  <LoggedInHome /> : <Link to="/signup" className="btn btn-submit btn-secondary btn-lg">Signup</Link> /* insert username here*/}
+             {localStorage.getItem('username') ?  <LoggedInHome /> : <Link to="/signup" className="btn btn-submit btn-secondary btn-lg">Signup</Link> /* insert username here*/}
         </div>
     )
 }

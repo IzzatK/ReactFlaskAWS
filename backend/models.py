@@ -14,8 +14,8 @@ class Recipe(db.Model):
     id = db.Column(db.Integer(), primary_key=True) #()empty params not included in blogapp Models
     title = db.Column(db.String(), nullable=False)
     description = db.Column(db.Text(), nullable=False)
-    # user_id=db.Column(db.Integer(30), db.ForeignKey('user.id'), nullable=False)
-    username=db.Column(db.String(), db.ForeignKey('user.username'), nullable=False)
+    user_id=db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    username=db.Column(db.String(), nullable=False)
     # recipe_file=db.Column(db.String(), nullable=True, default='default.pdf')
     # comments=db.Column(db.String(), db.ForeignKey('user.id'), nullable=False)
     #db.BIGINT()
@@ -52,6 +52,7 @@ class User(db.Model):
     username=db.Column(db.String(), nullable=False, unique=True)
     email=db.Column(db.String(), nullable=False, unique=True)
     recipes=db.relationship('Recipe', backref='author', lazy=True)
+    password=db.Column(db.Text(), nullable=False)
     # comments=db.relationship('Recipe', backref='commentauthor', lazy=True)
 
     def __repr__(self):

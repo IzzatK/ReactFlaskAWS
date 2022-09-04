@@ -35,8 +35,8 @@ fetch(`/auth/userid/${localStorage.getItem("username")}`).then(res => res.json()
 
 
     const showModal = (id) => {
-       
-        setRecipeID(id);
+       //setRecipeID(useParams)
+        setRecipeID(slug);
         console.log('recipe id is ---------->', recipeID);
         // recipes.map(
         //     (recipe)=>{
@@ -63,7 +63,7 @@ fetch(`/auth/userid/${localStorage.getItem("username")}`).then(res => res.json()
         e.preventDefault();
         {register('title', {value: titleInput}, {required:true} )}
         {register('description', {value: descriptionInput}, {required:true})}
-        {register('user_id', {value: userID}, {required:true}) }
+        {register('user_id', {value: localStorage.getItem('id')}, {required:true}) }
     
         
 
@@ -71,7 +71,7 @@ fetch(`/auth/userid/${localStorage.getItem("username")}`).then(res => res.json()
 
     const submitUserID = (e) => {
         e.preventDefault();
-        {register('user_id',{value: userID}, {required:true})}
+        {register('user_id',{value: localStorage.getItem('id')}, {required:true})}
     }
 
      const updateRecipe = (data, recipe) => {
@@ -94,7 +94,7 @@ fetch(`/auth/userid/${localStorage.getItem("username")}`).then(res => res.json()
             body: JSON.stringify(data)
         }
 
-        fetch(`/recipe/recipe/${recipeID}`, requestOptions).then(res => res.json())
+        fetch(`/recipe/recipe/${slug}`, requestOptions).then(res => res.json())
              .then(data => {reset(); window.location.reload()}).catch(err => console.log(err))
     }
 
@@ -107,7 +107,7 @@ fetch(`/auth/userid/${localStorage.getItem("username")}`).then(res => res.json()
             body: JSON.stringify(data)
         }
 
-        fetch(`/recipe/recipe/${recipeID}`, requestOptions).then(res => res.json())
+        fetch(`/recipe/recipe/${slug}`, requestOptions).then(res => res.json())
              .then(data => {reset(); window.location.reload()}).catch(err => console.log(err))
     }
 

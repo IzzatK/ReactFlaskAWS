@@ -42,7 +42,7 @@ const LoginPage = () => {
         
 
         */ /* {setStatus(res.status); res.json()} */ /* working res statement .then(res => res.json()) */
-        fetch('/auth/user/loginkeycloak', requestOptions)
+        fetch('/auth/login', requestOptions)
              .then(res => 
               {
                    if(!res.ok) throw new Error(res.status)
@@ -56,7 +56,7 @@ const LoginPage = () => {
                 //  console.log(data.access_token);
                 //  login(data.access_token);
                   console.log('data user id is --->', data.id);
-                  localStorage.setItem("access_token", data.access_token); localStorage.setItem("refresh_token", data.refresh_token); localStorage.setItem("id", data.id); localStorage.setItem("username", data.username);
+                  localStorage.setItem("access_token", data.access_token); localStorage.setItem("refresh_token", data.refresh_token); localStorage.setItem("id", data.user_id); localStorage.setItem("username", data.username);
                   dispatch({
                     type:'Logged',
                     payload: true,
