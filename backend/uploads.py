@@ -23,4 +23,5 @@ class UploadResource(Resource):
 
     def get(self):
         contents = show_image(BUCKET)
+        print(contents)
         return contents

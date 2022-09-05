@@ -11,6 +11,8 @@ const SingleFilePage = () => {
     const fileindex = useParams();
     const finalfileindex = fileindex.slug //.slug
     const [files, setFiles] = useState([])
+    const {slug} = useParams();
+    const [slugg, setSlug] = useState(false);
     const [currentFile, setCurrentFile] = useState([]);
     const [isValidUser, setIsValidUser] = useState(true);
 
@@ -48,7 +50,7 @@ const SingleFilePage = () => {
         {console.log('file url is -------->', fileindex)}
         {/* <PDFViewer document={{url: currentFile }} />  */}
 
-        <div>{files.map((f, i) => (<div> <PDFViewer document={{url: f }} />   </div>))}</div>
+        <div>{files.slice(finalfileindex, finalfileindex+1).map((f, i) => (<><div>{console.log(i)} <PDFViewer document={{url: f }} />   </div> </>))}</div>
 
         </div>
     )
